@@ -1,0 +1,1 @@
+Hello, my name is Miraj and I am an undergraduate student at Drexel University. Coming into college I had very little programming experience but through my CI102/CI103 project I have acquired important skills in utilizing various programming tools and frameworks. I aim to develop my ability in more of these skills as I continue on my quest to become a software engineer. 
