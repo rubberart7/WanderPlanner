@@ -1,13 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block head %}
+<!-- Add any additional head content here -->
+{% endblock %} {% block body %}
 
-<!--If you want to add something to head, just add it in between the block-->
-
-{% block head %} {% endblock %}
-
-<!--If you want to add something to body, just add it in between the block-->
-
-{% block body %}
-
+<!-- Add the content specific to the Recommendation page here -->
 <nav class="navBar">
   <img class="logoImg" src="" alt="" />
   <h1 class="logoName">WanderPlanner</h1>
@@ -16,13 +11,14 @@
     <button class="button" onclick="window.location.href='/planner'">
       Plan Your Trip
     </button>
-    <button class="button" onclick="window.location.href='/recommendations'">
-      Recommendations
-    </button>
     <button class="button" onclick="window.location.href='/about_us'">
       About Us
     </button>
   </div>
 </nav>
 
+<header class="recomendationsPage">
+  <h1 class="recsPage">Recommendations</h1>
+  <p>Here are the reccomendations</p>
+</header>
 {% endblock %}

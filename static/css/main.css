@@ -31,6 +31,7 @@ body {
     height: auto;
 }
 
+
 .logoName {
     font-size: 48px;
     font-weight: 900;
@@ -56,4 +57,16 @@ body {
 .buttonContainer button:hover {
     opacity: 1;
     scale: 1.1;
+}
+
+.aboutUsHeading {
+   color: black;
+}
+
+.recomendationsPage {
+    color: blue;
+}
+
+.plannerHeading {
+    color: red;
 }

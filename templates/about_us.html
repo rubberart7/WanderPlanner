@@ -1,12 +1,6 @@
-{% extends 'base.html' %}
-
-<!--If you want to add something to head, just add it in between the block-->
-
-{% block head %} {% endblock %}
-
-<!--If you want to add something to body, just add it in between the block-->
-
-{% block body %}
+{% extends 'base.html' %} {% block head %}
+<!-- Add any additional head content here -->
+{% endblock %} {% block body %}
 
 <nav class="navBar">
   <img class="logoImg" src="" alt="" />
@@ -19,10 +13,14 @@
     <button class="button" onclick="window.location.href='/recommendations'">
       Recommendations
     </button>
-    <button class="button" onclick="window.location.href='/about_us'">
-      About Us
-    </button>
   </div>
 </nav>
+
+<header class="aboutUsHeading">
+  <h1 class="aboutUsLogo">About Us</h1>
+  <p>Here is information about the creators</p>
+</header>
+
+<!-- Add the content specific to the Recommendation page here -->
 
 {% endblock %}
