@@ -2,28 +2,40 @@
     /*https://colorhunt.co/palette/eef5ffb4d4ff86b6f6176b87  (Link to color palette)*/
     --lightgray: #EEF5FF;
     --lightblue: #B4D4FF;
+    --darkerlightblue: #98b4d9;    
     --skyblue: #86B6F6;
     --deepblue: #176B87;
+    --bodybackground: #f0f0f0;
+    --fontcolor: #808080;
+}
+
+.navBar {
+    width: 100vw;
+    max-height: 10vh;
+    display: grid;
+    grid-template-rows: repeat(1, 10vh);
+    grid-template-columns: 10vw 35vw 50vw 5vw;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--lightblue);
+    position: sticky;
+    top: 0px;
 }
 
 body {
     margin: 0;
     font-family: 'Courier New', Courier, monospace;
-    color: var(--lightgray);
+    color: var(--fontcolor);
+    background-color: var(--bodybackground);
     display: flex;
     flex-direction: column;
 }
 
-.buttonContainer, .navBar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: var(--lightblue);
-}
-
-.buttonContainer {
-    width: 50vw;
-    height: 15vh;
+.buttonContainer{
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(4, auto);
 }
 
 .buttonContainer img {
@@ -31,42 +43,85 @@ body {
     height: auto;
 }
 
-
 .logoName {
     font-size: 48px;
     font-weight: 900;
-    color: var(--lightgray);
-    opacity: 0.6;
+    color: var(--bodybackground);
+    text-align: left;
 }
 
-.buttonContainer button {
-    width: 10vw;
-    height: 5vh;
-    color: var(--lightgray);
-    font-size: 14spx;
+.buttonContainer button,
+.startNowBtn button {
+    width: auto;
+    max-height: 10vh;
+    color: var(--bodybackground);
+    font-size: 20px;
     font-weight: 900;
     border-radius: 10px;
     border: none;
-    opacity: 0.6;
     transition: 0.3s;
     text-align: center;
-    background-color: var(--skyblue);
+    background-color: var(--lightblue);
     font-family: 'Courier New', Courier, monospace;
 }
 
-.buttonContainer button:hover {
-    opacity: 1;
-    scale: 1.1;
+.buttonContainer button:hover,
+.startNowBtn button:hover {
+    text-decoration: underline;
+    color: var(--skyblue);
+    scale: 1.05;
 }
 
-.aboutUsHeading {
-   color: black;
+.imageSliderContainer {
+    width: 100vw;
+    height: 70vh;
+    background-color: var(--darkerlightblue);
 }
 
-.recomendationsPage {
-    color: blue;
+.quoteContainer {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width: 75vw;
+    height: 25vh;
+    margin-left: 12.5vw;
 }
 
-.plannerHeading {
-    color: red;
+.quote {
+    font-size: 24px;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.siteInfoContainer {
+    width: 100vw;
+    height: 60vh;
+    display: grid;
+    grid-template-rows: repeat(1, 60vh);
+    grid-template-columns: 40vw 40vw;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.infoHeader h1 {
+    font-size: 32px;
+}
+
+.infoImg img {
+    max-width: 35vw;
+    max-height: auto;
+    margin-left: 5vw;
+}
+
+.startNowBtn button {
+    width: 15vw;
+    height: 5vh;
+    border: none;
+    color: var(--bodybackground);
+    background-color: var(--lightblue);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
 }
