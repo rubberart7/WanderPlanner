@@ -67,7 +67,6 @@ body {
 
 .buttonContainer button:hover,
 .startNowBtn button:hover {
-    text-decoration: underline;
     color: var(--skyblue);
     scale: 1.05;
 }
@@ -76,6 +75,11 @@ body {
     width: 100vw;
     height: 70vh;
     background-color: var(--darkerlightblue);
+}
+
+.images img {
+    width: 100vw;
+    height: 70vh;
 }
 
 .quoteContainer {
