@@ -155,3 +155,56 @@ body {
     font-weight: bold;
     border-radius: 10px;
 }
+
+.recomendationsPage {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--lightgray);
+    color: black;
+  }
+
+  .recsPage {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .recomendationsPage h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+.recommendations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--lightgray);
+    border-radius: 10px;
+}
+
+.recommendation {
+    flex: 0 1 calc(30% - 20px);
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+
+.recommendation h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.recommendation img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+.recommendation p {
+    font-size: 16px;
+    color: var(--black);
+}
