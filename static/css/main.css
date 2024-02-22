@@ -210,3 +210,52 @@ body {
     font-size: 16px;
     color: var(--black);
 }
+
+.travel-form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--lightgray);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.travel-form h2 {
+    color: var(--deepblue);
+}
+
+.travel-form label {
+    display: block;
+    margin-top: 10px;
+    color: var(--fontcolor);
+}
+
+.travel-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid var(--darkerlightblue);
+    border-radius: 4px;
+}
+
+.travel-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--deepblue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.travel-form button:hover {
+    background-color: var(--skyblue);
+}
+
+.link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
