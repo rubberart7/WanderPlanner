@@ -1,10 +1,10 @@
-var currSlide = 0;
+let currSlide = 0;
 slide()
 
 function slide() {
-    var i;
-    var img = document.querySelectorAll(".images img"); 
-    var indicator = document.querySelectorAll(".indicators div");
+    let i;
+    let img = document.querySelectorAll(".images img"); 
+    let indicator = document.querySelectorAll(".indicators div");
 
     for (i = 0; i < img.length; i++) {
         img[i].classList.add("hide");

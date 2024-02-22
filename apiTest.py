@@ -1,12 +1,15 @@
 import requests, os, random, math
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 url = "https://api.foursquare.com/v3/places/search"
 
 headers = {
     "accept": "application/json",
-    "Authorization": os.environ.get("API_KEY")
+    "Authorization": os.getenv('API_KEY')
 }
-
 
 # https://location.foursquare.com/developer/reference/place-search (all params)
 
@@ -30,18 +33,6 @@ headers = {
 
 # For this project, we should extract the name of the hotel and the address
 
-headers = {
-    "accept": "application/json",
-    "Authorization": os.environ.get("API_KEY")
-}
-
-param = {
-    "query": "breakfast",
-    "ll": "39.952583,-75.165222",
-    "radius": 10000,
-}
-
-url = "https://api.foursquare.com/v3/places/search"
 def parameterChange(query, ll, radius):
     radius = radius * 1609  # Will convert miles into meters
 
@@ -115,12 +106,12 @@ class travelPlan:
                                                   responseJson["results"][day]["location"]["formatted_address"], 10, 13)
             self.attractionList.append(touristObject)
 
-            touristObject = locationObjectCreator(responseJson["results"][day * 2]["name"],
-                                                  responseJson["results"][day * 2]["location"]["formatted_address"], 15, 17)
+            touristObject = locationObjectCreator(responseJson["results"][2]["name"],
+                                                  responseJson["results"][2]["location"]["formatted_address"], 15, 17)
             self.attractionList.append(touristObject)
 
-            touristObject = locationObjectCreator(responseJson["results"][day * 3]["name"],
-                                                  responseJson["results"][day * 3]["location"]["formatted_address"], 17, 19)
+            touristObject = locationObjectCreator(responseJson["results"][3]["name"],
+                                                  responseJson["results"][3]["location"]["formatted_address"], 17, 19)
             self.attractionList.append(touristObject)
 
     # General One hotel that we will use
@@ -134,10 +125,6 @@ class travelPlan:
         hotelObject = locationObjectCreator(responseJson["results"][index]["name"],
                                             responseJson["results"][index]["location"]["formatted_address"])
         self.hotel = hotelObject
-
-
-
-
 
 
 # Bug List:
