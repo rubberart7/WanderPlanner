@@ -2,6 +2,7 @@ import os, requests, random, math, time
 from flask import Flask, render_template, url_for
 from apiTest import travelPlan, parseObjectToString
 
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,7 +22,7 @@ def recommendations():
 
 @app.route('/planner', methods=['GET', 'POST'])
 async def planner():
-    travelPlans = travelPlan("32.361668,-86.279167", 50, 1)
+    travelPlans = travelPlan("39.952583,-75.165222", 10, 1)
     travelPlans.dataPopulate()
     # we need for loop to solve this
     return render_template("planner.html",
