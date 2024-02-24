@@ -156,29 +156,22 @@ body {
     font-weight: bold;
     border-radius: 10px;
 }
-
 .recomendationsPage {
     text-align: center;
     padding: 20px;
     background-color: var(--lightgray);
     color: var(--fontcolor);
-  }
+}
 
-  .recsPage {
+.recsPage {
     font-size: 36px;
     margin-bottom: 10px;
-  }
-
-  .recomendationsPage h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+}
 
 .recommendations {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 1fr; 
     gap: 20px;
     padding: 20px;
     background-color: var(--lightgray);
@@ -186,13 +179,12 @@ body {
 }
 
 .recommendation {
-    flex: 0 1 calc(30% - 20px);
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: left;
-  }
+}
 
 .recommendation h3 {
     font-size: 24px;
@@ -200,11 +192,12 @@ body {
 }
 
 .recommendation img {
-    width: 100%;
-    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
-  }
+}
 
 .recommendation p {
     font-size: 16px;
