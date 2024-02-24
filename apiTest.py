@@ -54,7 +54,7 @@ def locationObjectCreator(name, address, startTime=None, endTime=None):
     return locationObject
 
 def parseObjectToString(listInput):
-    return f"{listInput["name"]} - {listInput["ll"]} - {listInput["startTime"]} - {listInput["endTime"]}"
+    return f"{listInput['name']} - {listInput['ll']} - {listInput['startTime']} - {listInput['endTime']}"
 
 class travelPlan:
     def __init__(self, coordinates, radius, totalDays):
