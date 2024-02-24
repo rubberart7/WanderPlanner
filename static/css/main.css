@@ -204,6 +204,39 @@ body {
     color: var(--black);
 }
 
+.recommendation.enlarged {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 80%; /* Adjust the width as needed */
+    height: 80%; /* Adjust the height as needed */
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+  }
+  
+  .recommendation.enlarged h3 {
+    font-size: 24px; /* Adjust the font size as needed */
+    margin-bottom: 10px;
+  }
+  
+  .recommendation.enlarged img {
+    width: 100%; /* Adjust the width as needed */
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .recommendation.enlarged p {
+    font-size: 18px; /* Adjust the font size as needed */
+    line-height: 1.5; /* Adjust the line height as needed */
+    color: #333; /* Adjust the color as needed */
+    margin-bottom: 10px;
+  }
+
 .travel-form {
     max-width: 500px;
     margin: 50px auto;
