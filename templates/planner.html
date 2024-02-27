@@ -6,59 +6,33 @@
 
 {% block body %}
 
-<nav class="navBar">
-  <img class="logoImg" src="" alt="" />
-  <h1 class="logoName">WanderPlanner</h1>
-  <div class="buttonContainer">
-    <button class="button" onclick="window.location.href='/'">Home</button>
-    <button class="button" onclick="window.location.href='/planner'">
-      Planner
-    </button>
-    <button class="button" onclick="window.location.href='/recommendations'">
-      Recommendations
-    </button>
-    <button class="button" onclick="window.location.href='/about_us'">
-      About Us
-    </button>
+<form action="/planner" method="post" class="travelForm">
+  <h2>Travel Budget Form</h2>
+
+  <label for="totalBudget">Total Budget:</label>
+  <input type="number" id="totalBudget" name="totalBudget" required>
+
+  <label for="radius">Radius:</label>
+  <input type="number" id="radius" name="radius" required>
+
+  <label for="totalDays">Total Days:</label>
+  <input type="number" id="totalDays" name="totalDays" required>
+
+  <label for="location">Location:</label>
+  <input type="text" id="location" name="location" required>
+
+  <label for="departure">Departure:</label>
+  <input type="date" id="departure" name="departure" required>
+
+  <label for="return">Return</label>
+  <input type="date" id="return" name="return" required>
+
+  <div class="link-container">
+  <a href='/recommendations'>Don't know where to go?</a>
   </div>
-</nav>
 
-<header class="plannerHeading">
-  <h1 class="plannerLogo">Plan your trip today!</h1>
-  <p>Enter the information to plan your trip</p>
-</header>
-
-<body>
-  <main>
-  <form class="travel-form">
-    <h2>Travel Budget Form</h2>
-
-    <label for="totalBudget">Total Budget:</label>
-    <input type="number" id="totalBudget" name="totalBudget" required>
-
-    <label for="radius">Radius:</label>
-    <input type="number" id="radius" name="radius" required>
-
-    <label for="totalDays">Total Days:</label>
-    <input type="number" id="totalDays" name="totalDays" required>
-
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required>
-
-    <label for="departure">Departure:</label>
-    <input type="date" id="departure" name="departure" required>
-
-    <label for="return">Return</label>
-    <input type="date" id="return" name="return" required>
-
-    <div class="link-container">
-    <a href="recommendations.html">Don't know where to go?</a>
-    </div>
-
-    <button type="submit">Submit</button>
-  </form>
-</main>
-
+  <button type="submit" class="formSubmit">Submit</button>
+</form>
 
 <!--  <h1>Day1:</h1>-->
 
@@ -80,5 +54,12 @@
 <!--  <h1>Dinner:</h1>-->
 <!--  <p>{{dinnerList}}</p>-->
 
-</body>
+<script>
+  let formSubmit = document.querySelector("button.formSubmit");
+
+  /* After the submit button is clicked, we should redirect to a different page */
+  formSubmit.addEventListener("click", function() {
+    window.location.href = '/itinerary';
+  });
+</script>
 {% endblock %}

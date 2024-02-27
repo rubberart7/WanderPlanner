@@ -154,7 +154,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 10px;  
 }
 
 .recomendationsPage {
@@ -210,7 +210,7 @@ body {
     color: var(--black);
 }
 
-.travel-form {
+.travelForm {
     max-width: 500px;
     margin: 50px auto;
     padding: 20px;
@@ -219,17 +219,17 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.travel-form h2 {
+.travelForm h2 {
     color: var(--deepblue);
 }
 
-.travel-form label {
+.travelForm label {
     display: block;
     margin-top: 10px;
     color: var(--fontcolor);
 }
 
-.travel-form input {
+.travelForm input {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -238,7 +238,7 @@ body {
     border-radius: 4px;
 }
 
-.travel-form button {
+.travelForm button {
     width: 100%;
     padding: 10px;
     background-color: var(--deepblue);
@@ -248,7 +248,7 @@ body {
     cursor: pointer;
 }
 
-.travel-form button:hover {
+.travelForm button:hover {
     background-color: var(--skyblue);
 }
 
@@ -257,4 +257,28 @@ body {
     justify-content: center;
     align-items: center;
     height: 100px;
-  }
+}
+
+.daysContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    flex-wrap: wrap;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    color: var(--fontcolor);
+    background-color: var(--lightgray);
+    border-radius: 25px;
+    padding: 1.5vw;
+}
+
+.title {
+    text-align: center;
+}

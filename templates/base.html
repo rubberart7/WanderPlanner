@@ -12,6 +12,22 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <nav class="navBar">
+      <img class="logoImg" src="" alt="" />
+      <h1 class="logoName">WanderPlanner</h1>
+      <div class="buttonContainer">
+        <button class="button" onclick="window.location.href='/'">Home</button>
+        <button class="button" onclick="window.location.href='/planner'">
+          Planner
+        </button>
+        <button class="button" onclick="window.location.href='/recommendations'">
+          Recommendations
+        </button>
+        <button class="button" onclick="window.location.href='/about_us'">
+          About Us
+        </button>
+      </div>
+    </nav>
     {% block body %}{% endblock %}
   </body>
 </html>

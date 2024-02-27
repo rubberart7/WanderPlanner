@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+<!--If you want to add something to head, just add it in between the block-->
+{% block head %}
+
+{% endblock %}
+
+<!--If you want to add something to body, just add it in between the block-->
+{% block body %}
+
+<h1 class="title">Travel Itinerary</h1>
+<div class="daysContainer">
+    {% for day in duration %} 
+    <div class="day">
+        <h2 class="title">Day {{day + 1}}</h2>
+
+        <h3>Breakfast: </h3>
+        <p>{{breakfastList}}</p>
+
+        <h3>Activity One: </h3>
+        <p>{{activityOneList}}</p>
+
+        <h3>Lunch: </h3>
+        <p>{{lunchList}}</p>
+
+        <h3>Activity Two: </h3>
+        <p>{{activityTwoList}}</p>
+
+        <h3>Activity Three: </h3>
+        <p>{{activityThreeList}}</p>
+
+        <h3>Dinner:</h3>
+        <p>{{dinnerList}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
