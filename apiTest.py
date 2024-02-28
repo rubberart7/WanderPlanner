@@ -1,10 +1,10 @@
 import requests, os, random, math
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 url = "https://api.foursquare.com/v3/places/search"
+
 
 headers = {
     "accept": "application/json",
@@ -33,6 +33,25 @@ headers = {
 
 # For this project, we should extract the name of the hotel and the address
 
+
+API_KEY = os.getenv("API_KEY")
+
+if API_KEY is None:
+    key = os.environ.get("API_KEY")
+
+headers = {
+    "accept": "application/json",
+    "Authorization": API_KEY
+}
+
+param = {
+    "query": "breakfast",
+    "ll": "39.952583,-75.165222",
+    "radius": 10000,
+}
+
+url = "https://api.foursquare.com/v3/places/search"
+
 def parameterChange(query, ll, radius):
     radius = radius * 1609  # Will convert miles into meters
 
@@ -54,7 +73,8 @@ def locationObjectCreator(name, address, startTime=None, endTime=None):
     return locationObject
 
 def parseObjectToString(listInput):
-    return f"{listInput['name']} - {listInput['ll']} - {listInput['startTime']} - {listInput['endTime']}"
+    return f'Location: {listInput["name"]} Address: {listInput["ll"]} Time: {listInput["startTime"]}:00 - {listInput["endTime"]}:00'
+
 
 class travelPlan:
     def __init__(self, coordinates, radius, totalDays):
@@ -125,7 +145,6 @@ class travelPlan:
         hotelObject = locationObjectCreator(responseJson["results"][index]["name"],
                                             responseJson["results"][index]["location"]["formatted_address"])
         self.hotel = hotelObject
-
 
 # Bug List:
 

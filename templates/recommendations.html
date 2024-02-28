@@ -6,23 +6,6 @@
 
 {% block body %}
 
-<nav class="navBar">
-  <img class="logoImg" src="" alt="" />
-  <h1 class="logoName">WanderPlanner</h1>
-  <div class="buttonContainer">
-    <button class="button" onclick="window.location.href='/'">Home</button>
-    <button class="button" onclick="window.location.href='/planner'">
-      Planner
-    </button>
-    <button class="button" onclick="window.location.href='/recommendations'">
-      Recommendations
-    </button>
-    <button class="button" onclick="window.location.href='/about_us'">
-      About Us
-    </button>
-  </div>
-</nav>
-
 <header class="recomendationsPage">
   <h1 class="recsPage">Don't know where to go?</h1>
   <h2>
@@ -227,6 +210,7 @@
     </p>
   </div>
 </div>
+{% endblock %}
 
 <script>
   // Get all the recommendation grids
@@ -266,4 +250,3 @@
   });
 </script>
 
-{% endblock %}

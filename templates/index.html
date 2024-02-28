@@ -8,22 +8,6 @@
 
 {% block body %}
 
-<nav class="navBar">
-  <img class="logoImg" src="" alt="" />
-  <h1 class="logoName">WanderPlanner</h1>
-  <div class="buttonContainer">
-    <button class="button" onclick="window.location.href='/'">Home</button>
-    <button class="button" onclick="window.location.href='/planner'">
-      Planner
-    </button>
-    <button class="button" onclick="window.location.href='/recommendations'">
-      Recommendations
-    </button>
-    <button class="button" onclick="window.location.href='/about_us'">
-      About Us
-    </button>
-  </div>
-</nav>
 <div class="imageSliderContainer">
     <div class="images">
         <img src="../static/css/images/imageslide8.jpg">
@@ -39,11 +23,11 @@
         <div></div>
         <div></div>
     </div>
-</div>  
+</div>
 <div class="quoteContainer">
     <h1 class="quote">
-        "Unlock new adventures with WanderPlanner: 
-        Seamless, curated journeys where every moment becomes an exquisite exploration, 
+        "Unlock new adventures with WanderPlanner:
+        Seamless, curated journeys where every moment becomes an exquisite exploration,
         turning dreams into reality. Your journey begins here."
     </h1>
 </div>
@@ -54,8 +38,8 @@
         </div>
         <div class="infoText">
             <p>
-                "Discover boundless horizons with WanderPlanner, your gateway to personalized journeys. 
-                Unleash the extraordinary as we meticulously craft seamless itineraries, 
+                "Discover boundless horizons with WanderPlanner, your gateway to personalized journeys.
+                Unleash the extraordinary as we meticulously craft seamless itineraries,
                 turning your wanderlust into unforgettable adventures. Start planning now."
             </p>
         </div>
@@ -68,5 +52,49 @@
         <img src="../static/css/images/travel.png">
     </div>
 </div>
+<script>
+    let currSlide = 0;
+    slide()
+
+
+    function slide() {
+        let i;
+        let img = document.querySelectorAll(".images img"); 
+        let indicator = document.querySelectorAll(".indicators div");
+
+        for (i = 0; i < img.length; i++) {
+            img[i].classList.add("hide");
+            indicator[i].classList.remove("indicated");
+        }
+        currSlide++;
+        if (currSlide == img.length) {
+            currSlide = 0;
+
+        }
+        img[currSlide].classList.remove("hide");
+        indicator[currSlide].classList.add("indicated");
+        setTimeout(slide, 5000);  
+    }
+</script>
+
+    function slide() {
+        let i;
+        let img = document.querySelectorAll(".images img");
+        let indicator = document.querySelectorAll(".indicators div");
+
+        for (i = 0; i < img.length; i++) {
+            img[i].classList.add("hide");
+            indicator[i].classList.remove("indicated");
+        }
+        currSlide++;
+        if (currSlide == img.length) {
+            currSlide = 0;
+
+        }
+        img[currSlide].classList.remove("hide");
+        indicator[currSlide].classList.add("indicated");
+        setTimeout(slide, 5000);
+    }
+</script>
 
 {% endblock %}
