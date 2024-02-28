@@ -2,12 +2,6 @@ import requests, os, random, math
 
 url = "https://api.foursquare.com/v3/places/search"
 
-headers = {
-    "accept": "application/json",
-    "Authorization": os.environ.get("API_KEY")
-}
-
-
 # https://location.foursquare.com/developer/reference/place-search (all params)
 
 # Query: Search result of type of establishment
@@ -30,9 +24,15 @@ headers = {
 
 # For this project, we should extract the name of the hotel and the address
 
+
+API_KEY = os.getenv("API_KEY")
+
+if API_KEY is None:
+    key = os.environ.get("API_KEY")
+
 headers = {
     "accept": "application/json",
-    "Authorization": os.environ.get("API_KEY")
+    "Authorization": API_KEY
 }
 
 param = {
