@@ -1,6 +1,9 @@
 import requests, os, random, math
+from dotenv import load_dotenv
+load_dotenv()
 
 url = "https://api.foursquare.com/v3/places/search"
+
 
 # https://location.foursquare.com/developer/reference/place-search (all params)
 
@@ -63,7 +66,7 @@ def locationObjectCreator(name, address, startTime=None, endTime=None):
     return locationObject
 
 def parseObjectToString(listInput):
-    return f"{listInput["name"]} - {listInput["ll"]} - {listInput["startTime"]} - {listInput["endTime"]}"
+    return f'Location: {listInput["name"]} Address: {listInput["ll"]} Time: {listInput["startTime"]}:00 - {listInput["endTime"]}:00'
 
 class travelPlan:
     def __init__(self, coordinates, radius, totalDays):
@@ -134,11 +137,6 @@ class travelPlan:
         hotelObject = locationObjectCreator(responseJson["results"][index]["name"],
                                             responseJson["results"][index]["location"]["formatted_address"])
         self.hotel = hotelObject
-
-
-
-
-
 
 # Bug List:
 
