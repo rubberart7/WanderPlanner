@@ -3,6 +3,7 @@ from flask import Flask, render_template, url_for, request
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
 
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -48,7 +49,6 @@ def planner():
                             )
     else:
         return render_template("planner.html")
-
 
 
 if __name__ == "__main__":

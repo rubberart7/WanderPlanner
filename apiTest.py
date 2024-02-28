@@ -1,9 +1,15 @@
 import requests, os, random, math
 from dotenv import load_dotenv
+
 load_dotenv()
 
 url = "https://api.foursquare.com/v3/places/search"
 
+
+headers = {
+    "accept": "application/json",
+    "Authorization": os.getenv('API_KEY')
+}
 
 # https://location.foursquare.com/developer/reference/place-search (all params)
 
@@ -45,6 +51,7 @@ param = {
 }
 
 url = "https://api.foursquare.com/v3/places/search"
+
 def parameterChange(query, ll, radius):
     radius = radius * 1609  # Will convert miles into meters
 
@@ -67,6 +74,7 @@ def locationObjectCreator(name, address, startTime=None, endTime=None):
 
 def parseObjectToString(listInput):
     return f'Location: {listInput["name"]} Address: {listInput["ll"]} Time: {listInput["startTime"]}:00 - {listInput["endTime"]}:00'
+
 
 class travelPlan:
     def __init__(self, coordinates, radius, totalDays):
@@ -118,12 +126,12 @@ class travelPlan:
                                                   responseJson["results"][day]["location"]["formatted_address"], 10, 13)
             self.attractionList.append(touristObject)
 
-            touristObject = locationObjectCreator(responseJson["results"][day * 2]["name"],
-                                                  responseJson["results"][day * 2]["location"]["formatted_address"], 15, 17)
+            touristObject = locationObjectCreator(responseJson["results"][2]["name"],
+                                                  responseJson["results"][2]["location"]["formatted_address"], 15, 17)
             self.attractionList.append(touristObject)
 
-            touristObject = locationObjectCreator(responseJson["results"][day * 3]["name"],
-                                                  responseJson["results"][day * 3]["location"]["formatted_address"], 17, 19)
+            touristObject = locationObjectCreator(responseJson["results"][3]["name"],
+                                                  responseJson["results"][3]["location"]["formatted_address"], 17, 19)
             self.attractionList.append(touristObject)
 
     # General One hotel that we will use
