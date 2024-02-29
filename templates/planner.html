@@ -6,6 +6,7 @@
 
 {% block body %}
 
+<div class="link-container">
 <form action="/planner" method="post" class="travelForm">
   <h2>Travel Budget Form</h2>
 
@@ -27,9 +28,10 @@
   <label for="return">Return</label>
   <input type="date" id="return" name="return" required>
 
-  <div class="link-container">
   <a href='/recommendations'>Don't know where to go?</a>
+  </form>
   </div>
+  
 
   <button type="submit" class="formSubmit">Submit</button>
 </form>
