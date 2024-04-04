@@ -51,6 +51,12 @@ body {
     text-align: left;
 }
 
+.logoImg {
+    width: 48px;
+    height: 48px;
+    justify-self: center;
+}
+
 .buttonContainer button,
 .startNowBtn button {
     width: auto;
@@ -302,22 +308,36 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100vw;
     flex-wrap: wrap;
+    gap: 20px;
+}
+
+h2.title {
+    font-size: 30px;
 }
 
 .day {
     display: flex;
+    width: 20vw;
+    height: 130vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 20vw;
-    color: var(--fontcolor);
-    background-color: var(--lightgray);
-    border-radius: 25px;
+    color: var(--deepblue);
     padding: 1.5vw;
+    border: double 4px var(--deepblue);
+    border-radius: 20px;
 }
 
-.title {
+.itineraryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bodybackground);
+}
+
+h1.title {
+    font-size: 40px;
+    color: var(--deepblue);
     text-align: center;
 }
