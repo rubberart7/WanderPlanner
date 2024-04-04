@@ -16,24 +16,25 @@
         <h2 class="title">Day {{day + 1}}</h2>
 
         <h3>Breakfast: </h3>
-        <p>{{breakfastList}}</p>
+        <p>{{parseString(breakfastList[day])}}</p>
 
         <h3>Activity One: </h3>
-        <p>{{activityOneList}}</p>
+        <p>{{parseString(attractionsList[(3*day)])}}</p>
 
         <h3>Lunch: </h3>
-        <p>{{lunchList}}</p>
+        <p>{{parseString(lunchList[day])}}</p>
 
         <h3>Activity Two: </h3>
-        <p>{{activityTwoList}}</p>
+        <p>{{parseString(attractionsList[(3*day)+1])}}</p>
 
         <h3>Activity Three: </h3>
-        <p>{{activityThreeList}}</p>
+        <p>{{parseString(attractionsList[(3*day)+2])}}</p>
 
         <h3>Dinner:</h3>
-        <p>{{dinnerList}}</p>
+        <p>{{parseString(dinnerList[day])}}</p>
     </div>
     {% endfor %}
 </div>
+
 
 {% endblock %}

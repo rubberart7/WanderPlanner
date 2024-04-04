@@ -37,16 +37,14 @@ def planner():
         totalDays = []
         for day in range(days):
             totalDays.append(day)
-        # we need for loop to solve this
         return render_template("itinerary.html",
-                            duration=totalDays,
-                            breakfastList=parseObjectToString(travelPlans.breakfastList[0]),
-                            lunchList=parseObjectToString(travelPlans.lunchList[0]),
-                            dinnerList=parseObjectToString(travelPlans.dinnerList[0]),
-                            activityOneList=parseObjectToString(travelPlans.attractionList[0]),
-                            activityTwoList=parseObjectToString(travelPlans.attractionList[1]),
-                            activityThreeList=parseObjectToString(travelPlans.attractionList[2]),
-                            )
+                               duration=totalDays,
+                               breakfastList=travelPlans.breakfastList,
+                               lunchList=travelPlans.lunchList,
+                               dinnerList=travelPlans.dinnerList,
+                               attractionsList=travelPlans.attractionList,
+                               parseString=parseObjectToString,
+                               )
     else:
         return render_template("planner.html")
 
