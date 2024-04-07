@@ -2,9 +2,14 @@ import os, requests, random, math, time
 from flask import Flask, render_template, url_for, request
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
-
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
 
 @app.route('/')
 def index():
@@ -19,6 +24,7 @@ def about_us():
 @app.route('/recommendations')
 def recommendations():
     return render_template("recommendations.html")
+
 
 @app.route('/itinerary')
 def itinerary():
@@ -47,6 +53,11 @@ def planner():
                                )
     else:
         return render_template("planner.html")
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
 
 if __name__ == "__main__":
