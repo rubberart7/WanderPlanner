@@ -18,7 +18,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    background-color: var(--lightblue);
+    background-color: var(--deepblue);
     position: sticky;
     top: 0px;
     z-index: 1;
@@ -68,7 +68,7 @@ body {
     border: none;
     transition: 0.3s;
     text-align: center;
-    background-color: var(--lightblue);
+    background-color: var(--deepblue);
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -156,7 +156,7 @@ body {
     height: 5vh;
     border: none;
     color: var(--bodybackground);
-    background-color: var(--lightblue);
+    background-color: var(--deepblue);
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
     font-weight: bold;
@@ -210,7 +210,6 @@ body {
     color: black;
 }
 
-
 .recommendation.enlarged {
     position: fixed;
     top: 50%;
@@ -253,37 +252,58 @@ body {
     background-color: var(--bodybackground); 
 }
 
-.travel-form {
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    background-color: var(--lightgray);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.travelForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px 100px;
+    border-radius: 25px;
+    gap: 0.1vw;
 }
 
 .travelForm h2 {
     color: var(--deepblue);
+    font-size: 30px;
 }
 
 .travelForm label {
     display: block;
-    margin-top: 10px;
-    color: var(--fontcolor);
+    margin-top: 5px;
+    color: var(--deepblue);
+    font-weight: bold;
 }
 
 .travelForm input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    border: 1px solid var(--darkerlightblue);
-    border-radius: 4px;
+    padding: 5px 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: white;
+    border-bottom: 2px solid black;
+}
+
+.travelForm input::placeholder {
+    text-indent: 5px;
+}
+
+.travelForm input:hover {
+    text-decoration: none;
+}
+
+.travelForm input:focus {
+    outline: none;
+}
+
+.travelForm a {
+    align-items: center;
 }
 
 .travelForm button {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px 0px;
     background-color: var(--deepblue);
     color: white;
     border: none;
@@ -291,10 +311,12 @@ body {
     cursor: pointer;
     display: inline-block;
     font-size: 16px; 
-    margin: 0
+    transition: ease-in 0.1s;
+    margin: 20px 0px;
 }
 .travelForm button:hover {
     background-color: var(--skyblue);
+    scale: 1.05;
 }
 
 .link-container {

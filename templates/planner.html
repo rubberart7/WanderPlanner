@@ -10,27 +10,27 @@
   <form action="/planner" method="post" class="travelForm">
     <h2>Travel Budget Form</h2>
 
-    <label for="totalBudget">Total Budget:</label>
-    <input type="number" id="totalBudget" name="totalBudget" required>
+    <label for="totalBudget">Total Budget (Dollars):</label>
+    <input type="number" id="totalBudget" name="totalBudget" placeholder="e.g. 1000" required>
 
-    <label for="radius">Radius:</label>
-    <input type="number" id="radius" name="radius" required>
+    <label for="radius">Radius (Miles):</label>
+    <input type="number" id="radius" name="radius" placeholder="e.g. 20" required>
 
     <label for="totalDays">Total Days:</label>
-    <input type="number" id="totalDays" name="totalDays" required>
+    <input type="number" id="totalDays" name="totalDays" placeholder="e.g. 4" required>
 
     <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required>
+    <input type="text" id="location" name="location" placeholder="e.g. 3675 Market Street" required>
 
-    <label for="departure">Departure:</label>
-    <input type="date" id="departure" name="departure" required>
+    <label for="departure">Departure Date:</label>
+    <input type="date" id="departure" name="departure" placeholder="mm/dd/yyyy" required>
 
-    <label for="return">Return</label>
-    <input type="date" id="return" name="return" required>
-
-    <a href='/recommendations'>Don't know where to go?</a>
+    <label for="return">Return Date</label>
+    <input type="date" id="return" name="return" placeholder="mm/dd/yyyy" required>
 
     <button type="submit" class="formSubmit">Submit</button>
+
+    <a href='/recommendations'>Don't know where to go?</a>
   </form>
 </div>
 <!--<header class="plannerHeading">-->
