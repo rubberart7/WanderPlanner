@@ -20,7 +20,10 @@
         <button class="button" onclick="window.location.href='/planner'">
           Planner
         </button>
-        <button class="button" onclick="window.location.href='/recommendations'">
+        <button
+          class="button"
+          onclick="window.location.href='/recommendations'"
+        >
           Recommendations
         </button>
         <button class="button" onclick="window.location.href='/about_us'">
@@ -28,6 +31,35 @@
         </button>
       </div>
     </nav>
+
+    <!-- Toolbar related code: Miraj -->
+    <div class="floating-toolbar" id="floatingToolbar">
+      <div class="toolbar-content">
+        <span class="toolbar-text">Instructions: Click to enlarge</span>
+      </div>
+    </div>
+
+    <!-- JavaScript code -->
+    <script>
+      const floatingToolbar = document.getElementById("floatingToolbar");
+      let isToolbarEnlarged = false;
+
+      // Function to toggle toolbar enlargement
+      function toggleToolbar() {
+        floatingToolbar.classList.toggle("enlarged");
+        isToolbarEnlarged = !isToolbarEnlarged;
+
+        const isEnlarged = floatingToolbar.classList.contains("enlarged");
+        const newText = isEnlarged
+          ? "Detailed instructions here..."
+          : "Instructions: Click to enlarge";
+        floatingToolbar.querySelector(".toolbar-text").textContent = newText;
+      }
+
+      // Add click event listener to toggle toolbar enlargement
+      floatingToolbar.addEventListener("click", toggleToolbar);
+    </script>
+
     {% block body %}{% endblock %}
   </body>
 </html>
