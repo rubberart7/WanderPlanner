@@ -269,6 +269,8 @@ body {
 }
 
 .travelForm label {
+    width: 100%;
+    text-align: left;
     display: block;
     margin-top: 5px;
     color: var(--deepblue);
@@ -332,6 +334,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    padding-bottom: 50px;
 }
 
 h2.title {
@@ -341,7 +344,7 @@ h2.title {
 .day {
     display: flex;
     width: 20vw;
-    height: 130vh;
+    height: 150vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -389,22 +392,101 @@ h1.title {
     transition: transform 0.3s ease, height 0.3s ease; /* Add height transition */
     cursor: pointer;
     overflow: hidden; /* Hide any content that overflows the box */
-  }
+}
   
-  .toolbar-content {
-    padding: 10px;
-  }
-  
-  .toolbar-text {
-    font-size: 14px;
-    color: #333; /* Gray */
-    /* Allow text to wrap around */
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    white-space: normal;
-  }
-  
-  /* Enlarged state */
-  .floating-toolbar.enlarged {
-    height: 200px; /* Adjust as needed */
-  }
+.toolbar-content {
+padding: 10px;
+}
+
+.toolbar-text {
+font-size: 14px;
+color: #333; /* Gray */
+/* Allow text to wrap around */
+overflow-wrap: break-word;
+word-wrap: break-word;
+white-space: normal;
+}
+
+/* Enlarged state */
+.floating-toolbar.enlarged {
+height: 200px; /* Adjust as needed */
+}
+
+
+/* LOGIN AND SIGNUP */
+
+.sign-up-container, .login-container {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 75px 0px;
+}
+
+.sign-up, .login {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+color: var(--deepblue);
+background-color: white;
+padding: 40px 100px;
+border-radius: 25px;
+gap: 2vw;
+scale: 1.1;
+}
+
+.sign-up h1, .login h1 {
+text-align: center;
+font-size: 30px;
+}
+
+.sign-up input, .login input {
+border: none;
+border-bottom: 2px solid black;
+width: 100%;
+}
+
+.sign-up label, .login label {
+width: 100%;
+display: block;
+font-weight: 600;
+font-size: 16px;
+text-align: left;
+}
+
+.sign-up button, .login button {
+width: 100%;
+display: block;
+border: none;
+padding: 10px;
+border-radius: 5px;
+background-color: var(--deepblue);
+color: white;
+font-size: 16px;
+}
+
+.sign-up button:hover, .login button:hover {
+scale: 1.05;
+background-color: var(--lightblue);
+}
+
+.sign-up button:focus, .login button:focus {
+outline: none;
+}
+
+.sign-up input::placeholder, .login input::placeholder {
+text-indent: 2px;
+}
+
+.sign-up input:focus, .login input:focus {
+outline: none;
+}
+
+.sign-up p:hover, .login p:hover {
+text-decoration: underline;
+cursor: pointer;
+}
+
+.hideForm {
+    display: none;
+}

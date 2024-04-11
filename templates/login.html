@@ -8,46 +8,60 @@
 
 {% block body %}
 
-<h1>This is in testing still watch out</h1>
+<div class="sign-up-container">
+    <form class="sign-up">
+        <h1>Sign Up</h1>
 
-<div class="sign-up">
-    <form>
-        <h1>SIGN UP</h1>
-        <div>
-            <label>Username:</label>
-            <input>
-        </div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter Username">
 
-        <div>
-            <label>Password:</label>
-            <input>
-        </div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password">
 
-        <div>
-            <label>Confirm your password:</label>
-            <input>
-        </div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+
         <button>Sign Up</button>
+
+        <p>Already have an account?</p>
     </form>
 
 </div>
 
-<form>
-    <div class="log-in">
-    <h1>Log In</h1>
-    <div>
-        <label>Username:</label>
-        <input>
-    </div>
+<div class="login-container hideForm">
+    <form class="login">
+        <h1>Login</h1>
 
-    <div>
-        <label>Password:</label>
-        <input>
-    </div>
-    <button>Log In</button>
+        <label for="loginUsername">Username</label>
+        <input type="text" name="loginUsername" id="loginUsername" placeholder="Enter Username">
 
+        <label for="loginPassword">Password</label>
+        <input type="password" name="loginPassword" id="loginPassword" placeholder="Enter Password">
+
+        <button>Login</button>
+
+        <p>Don't have an account?</p>
+    </form>
 </div>
-</form>
 
+<script>
+
+    let switchLogin = document.querySelector(".sign-up-container p");
+    let switchSignup = document.querySelector(".login-container p");
+    let signupForm = document.querySelector(".sign-up-container");
+    let loginForm = document.querySelector(".login-container");
+    
+
+    switchLogin.addEventListener("click", () => {
+        signupForm.classList.add("hideForm");
+        loginForm.classList.remove("hideForm");
+    });
+
+    switchSignup.addEventListener("click", () => {
+        signupForm.classList.remove("hideForm");
+        loginForm.classList.add("hideForm");
+    });
+
+</script>
 
 {% endblock %}
