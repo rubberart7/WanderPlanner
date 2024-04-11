@@ -376,6 +376,8 @@ h1.title {
     cursor: pointer;
 }
 
+
+
 .floating-toolbar {
     position: fixed;
     bottom: 20px;
@@ -407,4 +409,46 @@ h1.title {
   /* Enlarged state */
   .floating-toolbar.enlarged {
     height: 200px; /* Adjust as needed */
+  }
+
+  .teamContainer {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 1000px; 
+  }
+
+  .teamGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
+    margin-top: 20px;
+  }
+
+  .teamMember {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .teamMember img {
+    max-width: 200px;
+    height: auto; 
+    border-radius: 50%; 
+    margin-bottom: 10px;
+  }
+
+  .teamMember h4 {
+    margin: 5px 0;
+    font-size: 1.2em; 
+  }
+
+  .teamMember p {
+    margin: 0;
+    font-size: 1em; 
+  }
+
+  @media (max-width: 768px) {
+    .teamGrid {
+      grid-template-columns: 1fr; 
+    }
   }
