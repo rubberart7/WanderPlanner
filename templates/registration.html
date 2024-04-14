@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block head %}
+<!-- Add any additional head content here -->
+{% endblock %}
+
+<!--If you want to add something to body, just add it in between the block-->
+<!--Have each database save a list of objects which we will eventually have a function that will go through the list and add the divs in-->
+
+
+<!--Lian Next Tasks - I need a lot of JS form validation-->
+
+<!--Make sure that the passwords match in 'sign-up'-->
+<!-- - Make sure to do this before the user presses submit-->
+<!-- - - You can do this with boolean statements in js-->
+
+<!--Create popups on top of the screen to tell a user if either their passwords/usernames were invalid-->
+<!--For example, 'username' was already taken in an alert div-->
+
+
+{% block body %}
+
+<div class="sign-up-container">
+    <form class="sign-up" method="post" action="/sign-up">
+        <h1>Sign Up</h1>
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter Username">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter Password">
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+
+        <button>Sign Up</button>
+
+        <p>Already have an account?</p>
+    </form>
+
+</div>
+
+<div class="login-container hideForm">
+    <form class="login" method="post" action="/login">
+        <h1>Login</h1>
+
+        <label for="loginUsername">Username</label>
+        <input type="text" name="loginUsername" id="loginUsername" placeholder="Enter Username">
+
+        <label for="loginPassword">Password</label>
+        <input type="password" name="loginPassword" id="loginPassword" placeholder="Enter Password">
+
+        <button>Login</button>
+
+        <p>Don't have an account?</p>
+    </form>
+</div>
+
+<script>
+
+    let switchLogin = document.querySelector(".sign-up-container p");
+    let switchSignup = document.querySelector(".login-container p");
+    let signupForm = document.querySelector(".sign-up-container");
+    let loginForm = document.querySelector(".login-container");
+
+
+    switchLogin.addEventListener("click", () => {
+        signupForm.classList.add("hideForm");
+        loginForm.classList.remove("hideForm");
+    });
+
+    switchSignup.addEventListener("click", () => {
+        signupForm.classList.remove("hideForm");
+        loginForm.classList.add("hideForm");
+    });
+
+</script>
+
+
+
+{% endblock %}
