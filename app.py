@@ -1,13 +1,27 @@
-import os, requests, random, math, time
-from flask import Flask, render_template, url_for, request
+import os
+
+from flask import Flask, render_template, url_for, request, redirect, session
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
 
+load_dotenv()
 app = Flask(__name__)
-# app.config['SECRET_KEY'] = 'your_secret_key'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+db = SQLAlchemy(app)
+
+
+class Account(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
+    savedData = db.Column(db.String(1000))
+
+    def __repr__(self):
+        return f'<Account {self.username}>'
 
 
 @app.route('/')
@@ -54,10 +68,49 @@ def planner():
         return render_template("planner.html")
 
 
-@app.route("/login")
+@app.route('/sign-up', methods=['GET', 'POST'])
+def signUp():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        savedData = "{adsasdsadsadasd}"
+
+        newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
+
+        try:
+            db.session.add(newAccount)
+            db.session.commit()
+
+            return redirect("/sign-up")
+
+        except:
+            return "There was an error with this operation"
+
+    return render_template("registration.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'POST':
+        username = request.form['loginUsername']
+        password = request.form['loginPassword']
+
+        user = Account.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            return render_template(
+                "welcome.html",
+                username=username
+            )
+        else:
+            return "Invalid username or password"
+
+    return render_template("registration.html")
 
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+
     app.run(debug=True)
