@@ -36,6 +36,9 @@
     </nav>
 
     <!-- Toolbar related code: Miraj -->
+    <!--The HTML code defines a <div> element with the class "floating-toolbar" and an ID of "floatingToolbar". 
+      Inside this <div>, there is a nested <div> with the class "toolbar-content" and a <span> element with the class "toolbar-text", containing the initial text "Help".
+      -->
     <div class="floating-toolbar" id="floatingToolbar">
       <div class="toolbar-content">
         <span class="toolbar-text">Help</span>
@@ -48,6 +51,12 @@
       let isToolbarEnlarged = false;
 
       // Function to toggle toolbar enlargement
+      // There is a function called toggleToolbar() defined, which is responsible for toggling the enlargement state of the toolbar.
+      // When called, it toggles the "enlarged" class on the floating toolbar element using classList.toggle("enlarged"), which determines its appearance.
+      // It also updates the isToolbarEnlarged variable accordingly.
+      // Inside the toggleToolbar() function, it checks if the toolbar is currently enlarged (isEnlarged).
+      // Depending on the state, it sets the text content of the toolbar to either "Help" or a list of useful tips for travel planning.
+      // When the toolbar is clicked, it calls the toggleToolbar() function, effectively toggling its enlargement state and updating its text content.
       function toggleToolbar() {
         floatingToolbar.classList.toggle("enlarged");
         isToolbarEnlarged = !isToolbarEnlarged;
