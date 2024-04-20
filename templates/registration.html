@@ -19,7 +19,7 @@
 {% block body %}
 
 <div class="sign-up-container">
-    <form class="sign-up" method="post" action="/sign-up">
+    <form class="sign-up" method="post" action="/sign-up" onsubmit="return validatePassword()">
         <h1>Sign Up</h1>
 
         <label for="username">Username</label>
@@ -30,7 +30,7 @@
 
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
-
+        <span id="errorMsg"></span>
         <button>Sign Up</button>
 
         <p>Already have an account?</p>
@@ -61,7 +61,6 @@
     let signupForm = document.querySelector(".sign-up-container");
     let loginForm = document.querySelector(".login-container");
 
-
     switchLogin.addEventListener("click", () => {
         signupForm.classList.add("hideForm");
         loginForm.classList.remove("hideForm");
@@ -71,6 +70,20 @@
         signupForm.classList.remove("hideForm");
         loginForm.classList.add("hideForm");
     });
+
+    function validatePassword() {
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let errorMessage = document.getElementById("errorMsg");
+        
+        if (password == confirmPassword) {
+            return true;
+        } 
+        else {
+            errorMessage.innerHTML = "Passwords do not match *";    
+            return false;
+        }
+    }
 
 </script>
 

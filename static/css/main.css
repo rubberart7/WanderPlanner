@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600&display=swap");
+
 :root {
     /*https://colorhunt.co/palette/eef5ffb4d4ff86b6f6176b87  (Link to color palette)*/
     --lightgray: #EEF5FF;
@@ -26,7 +28,7 @@
 
 body {
     margin: 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Ubuntu', 'Courier New', Courier, monospace;
     color: var(--fontcolor);
     background-color: var(--bodybackground);
     display: flex;
@@ -69,7 +71,7 @@ body {
     transition: 0.3s;
     text-align: center;
     background-color: var(--deepblue);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Ubuntu', Courier, monospace;
 }
 
 .buttonContainer button:hover,
@@ -157,7 +159,7 @@ body {
     border: none;
     color: var(--bodybackground);
     background-color: var(--deepblue);
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Ubuntu', Courier, monospace;
     font-size: 20px;
     font-weight: bold;
     border-radius: 10px;
@@ -243,7 +245,7 @@ body {
     margin-bottom: 10px;
 }
 
-  .link-container {
+.link-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -269,6 +271,8 @@ body {
 }
 
 .travelForm label {
+    width: 100%;
+    text-align: left;
     display: block;
     margin-top: 5px;
     color: var(--deepblue);
@@ -341,7 +345,7 @@ h2.title {
 .day {
     display: flex;
     width: 20vw;
-    height: 130vh;
+    height: 150vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -524,6 +528,12 @@ cursor: pointer;
     .teamGrid {
       grid-template-columns: 1fr;
     }
+  }
+
+  #errorMsg {
+    color: red;
+    text-align: left;
+    font-weight: 600;
   }
 
 
