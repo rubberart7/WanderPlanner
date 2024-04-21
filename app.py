@@ -6,6 +6,9 @@ from locationAPI import returnCoordinates
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
+from datetime import datetime
+
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -35,10 +38,16 @@ class Account(db.Model):
         return f'<Account {self.username}>'
 
 
+
+
+
 @app.route('/')
 def index():
     return render_template("index.html")
 
+@app.route('/map')
+def map():
+    return render_template("map.html")
 
 @app.route('/about_us')
 def about_us():

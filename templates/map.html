@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google Map</title>
+    <h1>My Google Map</h1>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 200px;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var location = { lat: -25.363, lng: 131.044 };
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: location,
+        });
+      }
+      // Api key here:
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/
+    js?key= key&callback=initMap"
+    ></script>
+  </body>
+</html>
+{% endblock %}
