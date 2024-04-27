@@ -13,13 +13,16 @@
       }
       #map {
         /* Adjust the height of the map */
-        height: 400px; /* Change this value as needed */
+        height: 600px;
         /* Adjust the width of the map */
-        width: 500px; /* Change this value as needed */
-        /* Add border styling */
-        border: 2px solid #ccc; /* Adjust border color and width as needed */
+        width: 80%;
+        margin: 0 auto; /* Center the map horizontally */
+        border: 5px solid var(--deepblue); /* Add border with custom color */
         border-radius: 10px; /* Add border radius for rounded corners */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+        background-color: var(--lightgray); /* Set background color */
+      }
+      h1 {
+        text-align: center;
       }
     </style>
   </head>
@@ -31,6 +34,33 @@
         var map = new google.maps.Map(document.getElementById("map"), {
           zoom: 4,
           center: location,
+        });
+        var markerIcon = {
+          url: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png", // URL of the marker icon image
+          scaledSize: new google.maps.Size(40, 40), // Size of the marker icon
+        };
+        var markerPosition = { lat: -33.8688, lng: 151.2195 };
+        // Create a marker with custom icon and position
+        var marker = new google.maps.Marker({
+          position: markerPosition,
+          map: map,
+          icon: markerIcon, // Use custom marker icon
+          title: "Custom Marker",
+          draggable: true,
+        });
+        // Add click event listener to the marker
+        marker.addListener("click", function () {
+          // Zoom in on the marker location
+          map.setCenter(marker.getPosition()); // Center the map on marker position
+          map.setZoom(16);
+        });
+        // Add a dragend event listener to the marker
+        marker.addListener("dragend", function (event) {
+          console.log(
+            "Marker dragged to:",
+            event.latLng.lat(),
+            event.latLng.lng()
+          );
         });
       }
     </script>

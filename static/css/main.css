@@ -458,20 +458,35 @@ cursor: pointer;
 }
 
 
+/* CSS for the floating toolbar */
 .floating-toolbar {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: auto; /* Allow the width to adjust based on content */
-    max-width: 300px; /* Set a maximum width to prevent it from becoming too wide */
-    height: auto; /* Allow the height to adjust based on content */
-    background-color: var(--lightgray); /* Light gray */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, height 0.3s ease; /* Add height transition */
+    padding: 10px;
+    border-radius: 20px; 
+    background-color: #f0f0f0; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    transition: all 0.3s ease; /* Add transition for smooth animation */
+    max-width: 70%; /* Limit maximum width of the bubble */
+    z-index: 1000; /* Set a higher z-index for the toolbar */
     cursor: pointer;
-    overflow: hidden; /* Hide any content that overflows the box */
   }
+  
+  /* Enlarged state */
+  .floating-toolbar.enlarged {
+    width: 300px; 
+    height: auto; /* Allow height to expand to fit content */
+    border-radius: 20px; /* Retain border radius */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+    z-index: 1001; /* Set an even higher z-index for the enlarged toolbar */
+  }
+
+  /* Hover effect */
+.floating-toolbar:hover {
+    background-color: #e0e0e0; 
+  }
+  
 
   .toolbar-content {
     padding: 10px;
@@ -483,12 +498,6 @@ cursor: pointer;
     font-size: 14px; /* Set the font size */
     /* Add any additional styling as needed */
 }
-
-  /* Enlarged state */
-  .floating-toolbar.enlarged {
-    height: 200px; /* Adjust as needed */
-  }
-
   .teamContainer {
     text-align: center;
     margin: 0 auto;
