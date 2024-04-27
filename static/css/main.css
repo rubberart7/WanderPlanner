@@ -38,7 +38,7 @@ body {
 .buttonContainer{
     display: grid;
     grid-template-rows: repeat(1, 1fr);
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(6, auto);
 }
 
 .buttonContainer img {
