@@ -5,4 +5,15 @@
 {% block body %}
 <h1>You have successfully registered</h1>
 {{username}}
+
+<script>
+
+    let verifyLogin = "{{ loggedIn }}";
+    
+    if (verifyLogin == 'True') {
+        localStorage.setItem('loggedIn', true); 
+    } else {
+        localStorage.setItem('loggedIn', false);
+    }
+</script>
 {% endblock %}
