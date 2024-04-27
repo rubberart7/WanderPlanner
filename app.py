@@ -123,7 +123,8 @@ def login():
             session['user_id'] = user.id
             return render_template(
                 "welcome.html",
-                username=username
+                username=username,
+                loggedIn=True
             )
         else:
             return "Invalid username or password"
