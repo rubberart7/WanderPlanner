@@ -12,8 +12,14 @@
         padding: 0;
       }
       #map {
-        height: 200px;
-        width: 50%;
+        /* Adjust the height of the map */
+        height: 400px; /* Change this value as needed */
+        /* Adjust the width of the map */
+        width: 500px; /* Change this value as needed */
+        /* Add border styling */
+        border: 2px solid #ccc; /* Adjust border color and width as needed */
+        border-radius: 10px; /* Add border radius for rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
       }
     </style>
   </head>
@@ -27,13 +33,11 @@
           center: location,
         });
       }
-      // Api key here:
     </script>
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/
-    js?key= key&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC25kVhHoyX5OjED2X6jNkXCfLt8TcpEK0&callback=initMap"
     ></script>
   </body>
 </html>
