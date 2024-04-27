@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 
 <!--If you want to add something to head, just add it in between the block-->
-{% block head %}
-
-
-{% endblock %}
+{% block head %} {% endblock %}
 
 <!--If you want to add s3omething to body, just add it in between the block-->
 {% block body %}
@@ -13,35 +10,34 @@
 <!--Add form validations that when this button is pressed. Add the previous data in app.py into whatever I wanbt-->
 
 <form class="save-planner" method="post" action="/save">
-    <button class="saveInformation">Save Information</button>
+  <button class="saveInformation">Save Information</button>
 </form>
 
 <div class="daysContainer">
-    {% for day in duration %}
+  {% for day in duration %}
 
-    <div class="day">
-        <h2 class="title">Day {{day + 1}}</h2>
+  <div class="day">
+    <h2 class="title">Day {{day + 1}}</h2>
 
-        <h3>Breakfast: </h3>
-        <p>{{parseString(breakfastList[day])}}</p>
+    <h3>Breakfast:</h3>
+    <p>{{parseString(breakfastList[day])}}</p>
 
-        <h3>Activity One: </h3>
-        <p>{{parseString(attractionsList[(3*day)])}}</p>
+    <h3>Activity One:</h3>
+    <p>{{parseString(attractionsList[(3*day)])}}</p>
 
-        <h3>Lunch: </h3>
-        <p>{{parseString(lunchList[day])}}</p>
+    <h3>Lunch:</h3>
+    <p>{{parseString(lunchList[day])}}</p>
 
-        <h3>Activity Two: </h3>
-        <p>{{parseString(attractionsList[(3*day)+1])}}</p>
+    <h3>Activity Two:</h3>
+    <p>{{parseString(attractionsList[(3*day)+1])}}</p>
 
-        <h3>Activity Three: </h3>
-        <p>{{parseString(attractionsList[(3*day)+2])}}</p>
+    <h3>Activity Three:</h3>
+    <p>{{parseString(attractionsList[(3*day)+2])}}</p>
 
-        <h3>Dinner:</h3>
-        <p>{{parseString(dinnerList[day])}}</p>
-    </div>
-    {% endfor %}
+    <h3>Dinner:</h3>
+    <p>{{parseString(dinnerList[day])}}</p>
+  </div>
+  {% endfor %}
 </div>
-
 
 {% endblock %}

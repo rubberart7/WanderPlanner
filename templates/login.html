@@ -5,62 +5,83 @@
 <!--If you want to add something to body, just add it in between the block-->
 <!--Have each database save a list of objects which we will eventually have a function that will go through the list and add the divs in-->
 
-
 {% block body %}
 
 <div class="sign-up-container">
-    <form class="sign-up">
-        <h1>Sign Up</h1>
+  <form class="sign-up">
+    <h1>Sign Up</h1>
 
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" placeholder="Enter Username">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      placeholder="Enter Username"
+    />
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Enter Password">
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="Enter Password"
+    />
 
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      type="password"
+      name="confirmPassword"
+      id="confirmPassword"
+      placeholder="Confirm Password"
+    />
 
-        <button>Sign Up</button>
+    <button>Sign Up</button>
 
-        <p>Already have an account?</p>
-    </form>
-
+    <p>Already have an account?</p>
+  </form>
 </div>
 
 <div class="login-container hideForm">
-    <form class="login">
-        <h1>Login</h1>
+  <form class="login">
+    <h1>Login</h1>
 
-        <label for="loginUsername">Username</label>
-        <input type="text" name="loginUsername" id="loginUsername" placeholder="Enter Username">
+    <label for="loginUsername">Username</label>
+    <input
+      type="text"
+      name="loginUsername"
+      id="loginUsername"
+      placeholder="Enter Username"
+    />
 
-        <label for="loginPassword">Password</label>
-        <input type="password" name="loginPassword" id="loginPassword" placeholder="Enter Password">
+    <label for="loginPassword">Password</label>
+    <input
+      type="password"
+      name="loginPassword"
+      id="loginPassword"
+      placeholder="Enter Password"
+    />
 
-        <button>Login</button>
+    <button>Login</button>
 
-        <p>Don't have an account?</p>
-    </form>
+    <p>Don't have an account?</p>
+  </form>
 </div>
 
 <script>
-    let switchLogin = document.querySelector(".sign-up-container p");
-    let switchSignup = document.querySelector(".login-container p");
-    let signupForm = document.querySelector(".sign-up-container");
-    let loginForm = document.querySelector(".login-container");
-    
+  let switchLogin = document.querySelector(".sign-up-container p");
+  let switchSignup = document.querySelector(".login-container p");
+  let signupForm = document.querySelector(".sign-up-container");
+  let loginForm = document.querySelector(".login-container");
 
-    switchLogin.addEventListener("click", () => {
-        signupForm.classList.add("hideForm");
-        loginForm.classList.remove("hideForm");
-    });
+  switchLogin.addEventListener("click", () => {
+    signupForm.classList.add("hideForm");
+    loginForm.classList.remove("hideForm");
+  });
 
-    switchSignup.addEventListener("click", () => {
-        signupForm.classList.remove("hideForm");
-        loginForm.classList.add("hideForm");
-    });
-    
+  switchSignup.addEventListener("click", () => {
+    signupForm.classList.remove("hideForm");
+    loginForm.classList.add("hideForm");
+  });
 </script>
 
 {% endblock %}
