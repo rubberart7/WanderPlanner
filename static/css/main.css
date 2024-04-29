@@ -546,3 +546,58 @@ cursor: pointer;
     font-weight: 600;
   }
 
+
+  #chatbot {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.chatbot-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.chatbot-messages {
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#chatbotButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    border: none;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+

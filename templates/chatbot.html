@@ -1,0 +1,26 @@
+!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    {% block head %}{% endblock %}
+    <div id="chatbot" class="chatbot hidden">
+        <div class="chatbot-header">
+            <h2>Chatbot</h2>
+            <button onclick="toggleChatbot()">Close</button>
+        </div>
+        <div class="chatbot-messages"></div>
+        <input type="text" id="userInput" placeholder="Type a message..." onkeypress="sendMessage(event)">
+    </div>
+    <button id="chatbotButton" onclick="toggleChatbot()">Chat</button>
+
+    <script src="script.js"></script>
+  </head>
+  <body>
+</body>
+</html>
