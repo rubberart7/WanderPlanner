@@ -28,6 +28,17 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
     return itineraryObject
 
 
+def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
+    itineraryObject = {
+        "breakfastList": breakfastList,
+        "lunchList": lunchList,
+        "dinnerList": dinnerList,
+        "attractionList": attractionList,
+    }
+
+    return itineraryObject
+
+
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
@@ -72,8 +83,7 @@ def planner():
         days = int(request.form['totalDays'])
         travelPlans = travelPlan(ll, radius, days)
         travelPlans.dataPopulate()
-        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList,
-                                            travelPlans.attractionList)
+        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList, travelPlans.attractionList)
         session['saveObject'] = saveObject
         totalDays = []
 
@@ -134,7 +144,8 @@ def login():
 
             return render_template(
                 "welcome.html",
-                username=username
+                username=username,
+                loggedIn=True
             )
         else:
             return "Invalid username or password"
@@ -161,7 +172,6 @@ def save():
     return render_template("planner.html")
     # check to make sure they are logged in. And add this to the third column saved data
 
-
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
 @app.route('/savedPlans')
 def savedPlans():
@@ -185,7 +195,6 @@ def savedPlans():
         return render_template("savedPlans.html")
 
         # look into the append thing we got at top or we have to implement a way wit js for the entire thing to loop
-
 
 
 if __name__ == '__main__':

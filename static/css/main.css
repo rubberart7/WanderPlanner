@@ -38,7 +38,7 @@ body {
 .buttonContainer{
     display: grid;
     grid-template-rows: repeat(1, 1fr);
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(6, auto);
 }
 
 .buttonContainer img {
@@ -458,20 +458,35 @@ cursor: pointer;
 }
 
 
+/* CSS for the floating toolbar */
 .floating-toolbar {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: auto; /* Allow the width to adjust based on content */
-    max-width: 300px; /* Set a maximum width to prevent it from becoming too wide */
-    height: auto; /* Allow the height to adjust based on content */
-    background-color: var(--lightgray); /* Light gray */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, height 0.3s ease; /* Add height transition */
+    padding: 10px;
+    border-radius: 20px; 
+    background-color: #f0f0f0; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    transition: all 0.3s ease; /* Add transition for smooth animation */
+    max-width: 70%; /* Limit maximum width of the bubble */
+    z-index: 1000; /* Set a higher z-index for the toolbar */
     cursor: pointer;
-    overflow: hidden; /* Hide any content that overflows the box */
   }
+  
+  /* Enlarged state */
+  .floating-toolbar.enlarged {
+    width: 300px; 
+    height: auto; /* Allow height to expand to fit content */
+    border-radius: 20px; /* Retain border radius */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+    z-index: 1001; /* Set an even higher z-index for the enlarged toolbar */
+  }
+
+  /* Hover effect */
+.floating-toolbar:hover {
+    background-color: #e0e0e0; 
+  }
+  
 
   .toolbar-content {
     padding: 10px;
@@ -483,12 +498,6 @@ cursor: pointer;
     font-size: 14px; /* Set the font size */
     /* Add any additional styling as needed */
 }
-
-  /* Enlarged state */
-  .floating-toolbar.enlarged {
-    height: 200px; /* Adjust as needed */
-  }
-
   .teamContainer {
     text-align: center;
     margin: 0 auto;
@@ -537,4 +546,58 @@ cursor: pointer;
     font-weight: 600;
   }
 
+
+  #chatbot {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.chatbot-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.chatbot-messages {
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#chatbotButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    border: none;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
 

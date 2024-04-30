@@ -6,8 +6,9 @@
 
 {% block body %}
 
+<title>Planner</title>
 <div class="link-container">
-  <form action="/planner" method="post" class="travelForm" onsubmit="return validInputs()">
+  <form action="/planner" method="post" class="travelForm">
     <h2>Travel Budget Form</h2>
 
     <label for="totalBudget">Total Budget (Dollars):</label>
@@ -16,9 +17,8 @@
     <label for="radius">Radius (Miles):</label>
     <input type="number" id="radius" name="radius" placeholder="e.g. 20" required>
 
-    <label for="totalDays">Total Days (Max 7):</label>
+    <label for="totalDays">Total Days:</label>
     <input type="number" id="totalDays" name="totalDays" placeholder="e.g. 4" required>
-    <span id="errorMsg"></span>
 
     <label for="location">Location:</label>
     <input type="text" id="location" name="location" placeholder="e.g. 3675 Market Street" required>
@@ -34,6 +34,8 @@
     <a href='/recommendations'>Don't know where to go?</a>
   </form>
 </div>
+
+
 <!--<header class="plannerHeading">-->
 <!--  <h1 class="plannerLogo" style="text-align: center">Plan your trip today!</h1>-->
 <!--  <p style="text-align: center">Enter the information to plan your trip</p>-->
@@ -95,7 +97,6 @@
     window.location.href = '/itinerary';
   });
 </script>
-
 
   <!--  <h1>Dinner:</h1>-->
   <!--  <p>{{dinnerList}}</p>-->

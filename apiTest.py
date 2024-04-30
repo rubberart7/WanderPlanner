@@ -146,9 +146,11 @@ class travelPlan:
                                             responseJson["results"][index]["location"]["formatted_address"])
         self.hotel = hotelObject
 
+
 # Bug List:
 
 # Bug 1: When there is not enough data from the api, the list will break. We need to implement error catching
 # Fix 1: We should have two templates, if there is not enough tourist attractions, we will follow the 2nd template
 
 # Bug 2: We are getting a lot of repeats of same stores esp if the radius is small
+

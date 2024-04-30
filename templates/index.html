@@ -9,73 +9,71 @@
 {% block body %}
 
 <div class="imageSliderContainer">
-    <div class="images">
-        <img src="../static/css/images/imageslide8.jpg">
-        <img src="../static/css/images/imageslide3.jpg">
-        <img src="../static/css/images/imageslide9.jpg">
-        <img src="../static/css/images/imageslide7.jpg">
-        <img src="../static/css/images/imageslide10.jpg">
-    </div>
-    <div class="indicators">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+  <div class="images">
+    <img src="../static/css/images/imageslide8.jpg" />
+    <img src="../static/css/images/imageslide3.jpg" />
+    <img src="../static/css/images/imageslide9.jpg" />
+    <img src="../static/css/images/imageslide7.jpg" />
+    <img src="../static/css/images/imageslide10.jpg" />
+  </div>
+  <div class="indicators">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>
 <div class="quoteContainer">
-    <h1 class="quote">
-        "Unlock new adventures with WanderPlanner:
-        Seamless, curated journeys where every moment becomes an exquisite exploration,
-        turning dreams into reality. Your journey begins here."
-    </h1>
+  <h1 class="quote">
+    "Unlock new adventures with WanderPlanner: Seamless, curated journeys where
+    every moment becomes an exquisite exploration, turning dreams into reality.
+    Your journey begins here."
+  </h1>
 </div>
 <div class="siteInfoContainer">
-    <div class="info">
-        <div class="infoHeader">
-            <h1>A tool to embark on your perfect adventure</h1>
-        </div>
-        <div class="infoText">
-            <p>
-                "Discover boundless horizons with WanderPlanner, your gateway to personalized journeys.
-                Unleash the extraordinary as we meticulously craft seamless itineraries,
-                turning your wanderlust into unforgettable adventures. Start planning now."
-            </p>
-        </div>
-        <div class="startNowBtn">
-            <button onclick="window.location.href='/planner'">Plan Now -></button>
-        </div>
+  <div class="info">
+    <div class="infoHeader">
+      <h1>A tool to embark on your perfect adventure</h1>
     </div>
-    <!-- https://www.flaticon.com/free-icon/travel_6213814  -->
-    <div class="infoImg">
-        <img src="../static/css/images/travel.png">
+    <div class="infoText">
+      <p>
+        "Discover boundless horizons with WanderPlanner, your gateway to
+        personalized journeys. Unleash the extraordinary as we meticulously
+        craft seamless itineraries, turning your wanderlust into unforgettable
+        adventures. Start planning now."
+      </p>
     </div>
+    <div class="startNowBtn">
+      <button onclick="window.location.href='/planner'">Plan Now -></button>
+    </div>
+  </div>
+  <!-- https://www.flaticon.com/free-icon/travel_6213814  -->
+  <div class="infoImg">
+    <img src="../static/css/images/travel.png" />
+  </div>
 </div>
 <script>
-    let currSlide = 0;
-    slide()
+  let currSlide = 0;
+  slide();
 
+  function slide() {
+    let i;
+    let img = document.querySelectorAll(".images img");
+    let indicator = document.querySelectorAll(".indicators div");
 
-    function slide() {
-        let i;
-        let img = document.querySelectorAll(".images img"); 
-        let indicator = document.querySelectorAll(".indicators div");
-
-        for (i = 0; i < img.length; i++) {
-            img[i].classList.add("hide");
-            indicator[i].classList.remove("indicated");
-        }
-        currSlide++;
-        if (currSlide == img.length) {
-            currSlide = 0;
-
-        }
-        img[currSlide].classList.remove("hide");
-        indicator[currSlide].classList.add("indicated");
-        setTimeout(slide, 5000);  
+    for (i = 0; i < img.length; i++) {
+      img[i].classList.add("hide");
+      indicator[i].classList.remove("indicated");
     }
+    currSlide++;
+    if (currSlide == img.length) {
+      currSlide = 0;
+    }
+    img[currSlide].classList.remove("hide");
+    indicator[currSlide].classList.add("indicated");
+    setTimeout(slide, 5000);
+  }
 </script>
-
 
 {% endblock %}
