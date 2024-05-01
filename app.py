@@ -7,7 +7,7 @@ from parseData import ParseData
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import date
 
 load_dotenv()
 app = Flask(__name__)
@@ -83,13 +83,13 @@ def planner():
         days = int(request.form['totalDays'])
         travelPlans = travelPlan(ll, radius, days)
         travelPlans.dataPopulate()
-        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList, travelPlans.attractionList)
+        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList,
+                                            travelPlans.attractionList)
         session['saveObject'] = saveObject
         totalDays = []
 
         for day in range(days):
             totalDays.append(day)
-
 
         return render_template("itinerary.html",
                                duration=totalDays,
@@ -108,18 +108,27 @@ def signUp():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        savedData = "@"
+        confirmPassword = request.form['confirmPassword']
+        # This will check the database for other occurrences, if there is already a specific username in db
+        # (aka a first pops up) then this username is now invalid
+        user = Account.query.filter_by(username=username).first()
 
-        newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
+        if user is None:
+            savedData = "@"
 
-        try:
-            db.session.add(newAccount)
-            db.session.commit()
+            newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
 
-            return redirect("/login")
+            try:
+                db.session.add(newAccount)
+                db.session.commit()
 
-        except:
-            return "There was an error with this operation"
+                return redirect("/login")
+
+            except:
+                return "If you reached this screen please contact me on what happened"
+        else:
+
+            return render_template("registration.html", error="This username has already been taken")
 
     return render_template("registration.html")
 
@@ -140,7 +149,6 @@ def login():
                 for items in range(1, len(savedDataList)):
                     if savedDataList[items] != "":
                         allData.addItinerary(savedDataList[items])
-            print(len(allData.dataList))
 
             return render_template(
                 "welcome.html",
@@ -172,24 +180,31 @@ def save():
     return render_template("planner.html")
     # check to make sure they are logged in. And add this to the third column saved data
 
+
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
+
+# Will be implemented later, this feature will check if the user is logged in or not. If they are clear the savedPlan
+# until they log in
+@app.route('/toggleLog', methods=['GET', 'POST'])
+def toggleLog():
+    db.session.close()
+    print(session['user_id'])
+    return render_template("registration.html")
 @app.route('/savedPlans')
 def savedPlans():
-
     if len(allData.dataList) >= 1:
         totalPlans = []
-        print(allData.dataList)
         for lists in range(len(allData.dataList)):
             totalDays = []
             for days in range(len(allData.dataList[lists]["breakfastList"])):
                 totalDays.append(days)
             totalPlans.append(totalDays)
 
-
         return render_template("savedPlans.html",
                                allPlans=totalPlans,
                                parseString=parseObjectToString,
-                               totalList=allData.dataList
+                               totalList=allData.dataList,
+                               date=date.today(),
                                )
     else:
         return render_template("savedPlans.html")
