@@ -10,8 +10,9 @@
 
 <h1 class="title">Saved Itinerary</h1>
 
-{% for plan_index in range(allPlans|length) %}
-    <h1>Saved Plan #{{plan_index + 1}}</h1>
+<div>
+    {% for plan_index in range(allPlans|length) %}
+    <h1 class="title">Plan #{{plan_index + 1}} ({{date}})</h1>
 
     <div class="daysContainer">
 
@@ -48,6 +49,8 @@
     {% endfor %}
     </div>
 {% endfor %}
+</div>
+
 
 {% endblock %}
 

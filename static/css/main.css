@@ -60,7 +60,7 @@ body {
 }
 
 .buttonContainer button,
-.startNowBtn button {
+.startNowBtn button, .logForm div {
     width: auto;
     max-height: 10vh;
     color: var(--bodybackground);
@@ -346,7 +346,6 @@ h2.title {
 .day {
     display: flex;
     width: 20vw;
-    height: 150vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -354,6 +353,10 @@ h2.title {
     padding: 1.5vw;
     border: double 4px var(--deepblue);
     border-radius: 20px;
+}
+
+.day {
+    font-size: 20px;
 }
 
 .itineraryContainer {
@@ -578,6 +581,7 @@ cursor: pointer;
     overflow-y: auto;
 }
 
+
 #chatbotButton {
     position: fixed;
     bottom: 10px;
@@ -600,4 +604,5 @@ input[type="text"] {
 input[type="text"]:focus {
     outline: none;
 }
+
 
