@@ -16,13 +16,17 @@
       <h1 class="logoName">WanderPlanner</h1>
       <div class="buttonContainer">
         <button class="button" onclick="window.location.href='/'">Home</button>
-        <button class="button" onclick="window.location.href='/planner'">
-          Planner
-        </button>
-        <button
-          class="button"
-          onclick="window.location.href='/recommendations'"
-        >
+        <div class="dropdown">
+          <button class="button" onclick="window.location.href='/planner'">
+            Planner
+          </button>
+          <div id="dropdownContent">
+            <a class="link" onclick="window.location.href='/savedPlans'">
+              Saved Plans
+            </a>
+          </div>
+        </div>
+        <button class="button" onclick="window.location.href='/recommendations'">
           Recommendations
         </button>
         <button class="button" onclick="window.location.href='/map'">
@@ -39,9 +43,6 @@
           Log Out
           </div>
         </form>
-        <button class="button" onclick="window.location.href='/savedPlans'">
-          Saved Plans
-        </button>
       </div>
     </nav>
 
