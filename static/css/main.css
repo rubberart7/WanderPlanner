@@ -580,7 +580,7 @@ cursor: pointer;
 
 #chatbotButton {
     position: fixed;
-    bottom: 10px;
+    bottom: 15px;
     right: 10px;
     padding: 10px 20px;
     font-size: 16px;
