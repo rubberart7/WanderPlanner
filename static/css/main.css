@@ -461,7 +461,7 @@ cursor: pointer;
 /* CSS for the floating toolbar */
 .floating-toolbar {
     position: fixed;
-    bottom: 20px;
+    bottom: 65px;
     right: 20px;
     padding: 10px;
     border-radius: 20px; 
