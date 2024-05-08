@@ -36,6 +36,7 @@
           About Us
         </button>
         <form class="logForm" action="/toggleLog" method="post">
+          <input type="input" name="hiddenForm" class="hiddenForm" id="hiddenForm" value="KingKong">
           <div class="loginBtn button logs" onclick="window.location.href='/login'">
           Log In
           </div>
@@ -58,11 +59,15 @@
 
     <!-- JavaScript code -->
     <script defer>
-      const logForm = document.querySelector(".loginForm")
-      const logButtons = document.querySelectorAll(".logs")
+      const logForm = document.querySelector(".logForm")
+      const logButtons = logForm.querySelectorAll("div")
+
       logButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          window.location.href = "/login"
+          // Here we want to get the current form that has the hidden tag and put it into the form input which will be pushed back out
+          let currButton = document.querySelector(".hide")
+          let hiddenInput = document.querySelector(".hiddenForm")
+          hiddenInput.value = currButton.innerHTML.trim()
           logForm.submit()
         })
       })

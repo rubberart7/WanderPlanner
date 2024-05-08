@@ -623,4 +623,8 @@ cursor: pointer;
     cursor: pointer;
 }
 
+.hiddenForm {
+    display: none;
+    position: absolute;
+}
 

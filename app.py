@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 db = SQLAlchemy(app)
 allData = ParseData()
+logged = False
 
 
 def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
@@ -77,6 +78,7 @@ def itinerary():
 @app.route('/planner', methods=['GET', 'POST'])
 def planner():
     if request.method == 'POST':
+
         location = request.form['location']
         ll = returnCoordinates(location)
         radius = int(request.form['radius'])
@@ -149,7 +151,6 @@ def login():
                 for items in range(1, len(savedDataList)):
                     if savedDataList[items] != "":
                         allData.addItinerary(savedDataList[items])
-
             return render_template(
                 "welcome.html",
                 username=username,
@@ -166,12 +167,16 @@ def save():
     if request.method == 'POST':
         my_var = session.get('saveObject')
         try:
-            user_id = session['user_id']
-            currUser = Account.query.get(user_id)
-            currUser.savedData += f"{my_var}@"
-            db.session.commit()
-            # Make it so this is my_var instead
-            allData.addItinerary(f"{my_var}")
+            currState = session.get("logState")
+            if currState == "Log Out":
+                user_id = session['user_id']
+                currUser = Account.query.get(user_id)
+                currUser.savedData += f"{my_var}@"
+                db.session.commit()
+                # Make it so this is my_var instead
+                allData.addItinerary(f"{my_var}")
+            else:
+                return "You need to be logged in"
 
         except KeyError:
 
@@ -187,23 +192,34 @@ def save():
 # until they log in
 @app.route('/toggleLog', methods=['GET', 'POST'])
 def toggleLog():
-    db.session.close()
-    print(session['user_id'])
+    if request.method == "POST":
+        logState = request.form["hiddenForm"]
+        session["logState"] = logState
+        if logState != "Log Out":
+            allData.clear()
+
+        db.session.close()
+
     return render_template("registration.html")
+
+# I will need to find a way to incorporate session into the current log in
+
+
 @app.route('/savedPlans')
 def savedPlans():
-    if len(allData.dataList) >= 1:
+    if len(allData.getDataList()) >= 1:
+        allDataList = allData.getDataList()
         totalPlans = []
-        for lists in range(len(allData.dataList)):
+        for lists in range(len(allDataList)):
             totalDays = []
-            for days in range(len(allData.dataList[lists]["breakfastList"])):
+            for days in range(len(allDataList[lists]["breakfastList"])):
                 totalDays.append(days)
             totalPlans.append(totalDays)
 
         return render_template("savedPlans.html",
                                allPlans=totalPlans,
                                parseString=parseObjectToString,
-                               totalList=allData.dataList,
+                               totalList=allDataList,
                                date=date.today(),
                                )
     else:
