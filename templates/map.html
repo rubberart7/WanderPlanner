@@ -5,12 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google Map</title>
+    <h1>My Google Map</h1>
     <style>
       * {
         margin: 0;
         padding: 0;
       }
-
       /* Style for the search bar container */
       .search-bar {
         margin-top: 20px; /* Adjust the margin-top as needed */
@@ -25,7 +25,6 @@
         border-radius: 5px;
         font-size: 16px;
       }
-
       #map {
         /* Adjust the height of the map */
         height: 600px;
@@ -36,7 +35,6 @@
         border-radius: 10px; /* Add border radius for rounded corners */
         background-color: var(--lightgray); /* Set background color */
       }
-
       h1 {
         text-align: center;
       }
@@ -56,8 +54,39 @@
           center: location,
         });
 
+        //defines a marker icon with a specific URL and size, sets an initial position for the marker, and creates the marker object with properties including the icon, position, title, and draggable capability. Event listeners are added to handle marker clicks, which zoom the map to the marker's location, and marker dragging, which logs the new position coordinates when dragging ends.
+        var markerIcon = {
+          url: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png", // URL of the marker icon image
+          scaledSize: new google.maps.Size(40, 40), // Size of the marker icon
+        };
+        var markerPosition = { lat: -33.8688, lng: 151.2195 };
+        // Create a marker with custom icon and position
+        var marker = new google.maps.Marker({
+          position: markerPosition,
+          map: map,
+          icon: markerIcon, // Use custom marker icon
+          title: "Custom Marker",
+          draggable: true,
+        });
+        // Add click event listener to the marker
+        marker.addListener("click", function () {
+          // Zoom in on the marker location
+          map.setCenter(marker.getPosition()); // Center the map on marker position
+          map.setZoom(16);
+        });
+        // Add a dragend event listener to the marker
+        marker.addListener("dragend", function (event) {
+          console.log(
+            "Marker dragged to:",
+            event.latLng.lat(),
+            event.latLng.lng()
+          );
+        });
+
+        // Autocomplete and SearchBox Code
         var input = document.getElementById("pac-input");
         var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         map.addListener("bounds_changed", function () {
           searchBox.setBounds(map.getBounds());
@@ -70,7 +99,6 @@
           if (places.length == 0) {
             return;
           }
-
           markers.forEach(function (marker) {
             marker.setMap(null);
           });
@@ -82,10 +110,18 @@
               console.log("Returned place contains no geometry");
               return;
             }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25),
+            };
 
             markers.push(
               new google.maps.Marker({
                 map: map,
+                icon: icon,
                 title: place.name,
                 position: place.geometry.location,
               })
