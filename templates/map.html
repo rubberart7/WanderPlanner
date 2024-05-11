@@ -5,19 +5,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google Map</title>
-    <h1>My Google Map</h1>
+    <h1 class="mapTitle">My Google Map</h1>
     <style>
-          * {
+
+      * {
         margin: 0;
         padding: 0;
-    }
-    /* Style for the search bar container */
-    .search-bar {
+      }
+      /* Style for the search bar container */
+
+      .mapTitle {
+        color: var(--deepblue);
+        padding-top: 20px;
+      }
+
+      .search-bar {
         margin-top: 20px; /* Adjust the margin-top as needed */
         text-align: center; /* Center the search bar horizontally */
-    }
-    /* Style for the search input field */
-    #pac-input {
+        padding-bottom: 20px;
+      }
+
+      /* Style for the search input field */
+      #pac-input {
         width: 300px; /* Adjust the width as needed */
         padding: 10px;
         border: 1px solid #ccc;
