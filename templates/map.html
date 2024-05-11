@@ -32,8 +32,33 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
-      }
-      #map {
+    }
+    /* Style for the directions input fields */
+    #origin, #destination {
+        width: 300px; /* Adjust the width as needed */
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    #origin::placeholder, #destination::placeholder {
+        color: #808080; /* Match the font color */
+    }
+    /* Style for the get directions button */
+    #get-directions-btn {
+        padding: 10px 20px; /* Adjust padding as needed */
+        background-color: var(--deepblue);
+        color: var(--lightgray);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    #get-directions-btn:hover {
+        background-color: #176B87; /* Darken color on hover */
+    }
+    #map {
         /* Adjust the height of the map */
         height: 600px;
         /* Adjust the width of the map */
@@ -42,10 +67,10 @@
         border: 5px solid var(--deepblue); /* Add border with custom color */
         border-radius: 10px; /* Add border radius for rounded corners */
         background-color: var(--lightgray); /* Set background color */
-      }
-      h1 {
-        text-align: center;
-      }
+    }
+    h1 {
+        text-align: left;
+    }
     </style>
   </head>
   <body>
@@ -53,16 +78,35 @@
     <div class="search-bar">
       <input id="pac-input" type="text" placeholder="Search Box" />
     </div>
+    <div>
+      <label for="origin">Origin:</label>
+      <input type="text" id="origin" placeholder="Enter origin address">
+      <br>
+      <label for="destination">Destination:</label>
+      <input type="text" id="destination" placeholder="Enter destination address">
+      <br>
+      <button onclick="calculateAndDisplayRoute()">Get Directions</button>
+  </div>
+    </div>
     <div id="map"></div>
     <script>
+      const defaultZoom = 4;
+      // defines javascript function which initalizes the map centered at these coordinates with a zoom level, rendered using the google maps api
       function initMap() {
         var location = { lat: -25.363, lng: 131.044 };
         var map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 4,
+          zoom: defaultZoom,
           center: location,
         });
-
-        //defines a marker icon with a specific URL and size, sets an initial position for the marker, and creates the marker object with properties including the icon, position, title, and draggable capability. Event listeners are added to handle marker clicks, which zoom the map to the marker's location, and marker dragging, which logs the new position coordinates when dragging ends.
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        console.log("Map initialized:", map);
+        //defines a marker icon with a specific URL and size,
+        // sets an initial position for the marker, and creates the marker object
+        // with properties including the icon, position, title, and draggable
+        // capability. Event listeners are added to handle marker clicks, which zoom the map
+        // to the marker's location, and marker dragging, which logs the new position coordinates when dragging ends.
         var markerIcon = {
           url: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png", // URL of the marker icon image
           scaledSize: new google.maps.Size(40, 40), // Size of the marker icon
@@ -144,11 +188,31 @@
           map.fitBounds(bounds);
         });
       }
+      // function for calculating directions and displaying it
+      function calculateAndDisplayRoute() {
+        var origin = document.getElementById("origin").value;
+        var destination = document.getElementById("destination").value;
+
+        directionsService.route(
+          {
+            origin: origin,
+            destination: destination,
+            travelMode: "DRIVING",
+          },
+          function (response, status) {
+            if (status === "OK") {
+              directionsRenderer.setDirections(response);
+            } else {
+              window.alert("Directions request failed due to " + status);
+            }
+          }
+        );
+      }
     </script>
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC25kVhHoyX5OjED2X6jNkXCfLt8TcpEK0&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC25kVhHoyX5OjED2X6jNkXCfLt8TcpEK0&libraries=places&callback=initMap"
     ></script>
   </body>
 </html>
