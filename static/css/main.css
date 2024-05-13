@@ -613,6 +613,19 @@ cursor: pointer;
     font-weight: 600;
 }
 
+input[type="text"] {
+    border: none;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+.hidden {
+    display: none;
+}
 
 #chatbot {
     position: fixed;
@@ -628,10 +641,6 @@ cursor: pointer;
     overflow: hidden;
 }
 
-.hidden {
-    display: none;
-}
-
 .chatbot-header {
     background-color: #f1f1f1;
     padding: 10px;
@@ -645,6 +654,12 @@ cursor: pointer;
     overflow-y: auto;
 }
 
+#userInput {
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
 
 #chatbotButton {
     position: fixed;
@@ -658,3 +673,5 @@ cursor: pointer;
     border-radius: 20px;
     cursor: pointer;
 }
+
+

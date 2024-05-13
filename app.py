@@ -1,13 +1,14 @@
 import os
 
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
 from parseData import ParseData
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from datetime import date
+from datetime import datetime
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -39,6 +40,21 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
     return itineraryObject
 
 
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message')
+    if user_message.lower() == 'hello':
+        bot_response = "Hi there! How can I help you today?"
+    else:
+        bot_response = "Sorry, I did not understand that."
+    return jsonify({'response': bot_response})
+
+
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
@@ -47,11 +63,6 @@ class Account(db.Model):
 
     def __repr__(self):
         return f'<Account {self.username}>'
-
-
-@app.route('/')
-def index():
-    return render_template("index.html")
 
 
 @app.route('/map')
@@ -83,8 +94,8 @@ def planner():
         days = int(request.form['totalDays'])
         travelPlans = travelPlan(ll, radius, days)
         travelPlans.dataPopulate()
-        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList,
-                                            travelPlans.attractionList)
+        saveObject = itineraryObjectCreator(
+            travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList, travelPlans.attractionList)
         session['saveObject'] = saveObject
         totalDays = []
 
@@ -113,8 +124,8 @@ def signUp():
         # (aka a first pops up) then this username is now invalid
         user = Account.query.filter_by(username=username).first()
 
-        if user is None:
-            savedData = "@"
+        newAccount = Account(username=username, password=generate_password_hash(
+            password), savedData=savedData)
 
             newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
 
@@ -182,34 +193,6 @@ def save():
 
 
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
-
-# Will be implemented later, this feature will check if the user is logged in or not. If they are clear the savedPlan
-# until they log in
-@app.route('/toggleLog', methods=['GET', 'POST'])
-def toggleLog():
-    db.session.close()
-    print(session['user_id'])
-    return render_template("registration.html")
-@app.route('/savedPlans')
-def savedPlans():
-    if len(allData.dataList) >= 1:
-        totalPlans = []
-        for lists in range(len(allData.dataList)):
-            totalDays = []
-            for days in range(len(allData.dataList[lists]["breakfastList"])):
-                totalDays.append(days)
-            totalPlans.append(totalDays)
-
-        return render_template("savedPlans.html",
-                               allPlans=totalPlans,
-                               parseString=parseObjectToString,
-                               totalList=allData.dataList,
-                               date=date.today(),
-                               )
-    else:
-        return render_template("savedPlans.html")
-
-        # look into the append thing we got at top or we have to implement a way wit js for the entire thing to loop
 
 
 if __name__ == '__main__':
