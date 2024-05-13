@@ -1,13 +1,12 @@
 import os
 
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 from datetime import datetime
-
 
 
 load_dotenv()
@@ -28,6 +27,21 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
     return itineraryObject
 
 
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message')
+    if user_message.lower() == 'hello':
+        bot_response = "Hi there! How can I help you today?"
+    else:
+        bot_response = "Sorry, I did not understand that."
+    return jsonify({'response': bot_response})
+
+
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
@@ -38,16 +52,10 @@ class Account(db.Model):
         return f'<Account {self.username}>'
 
 
-
-
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
 @app.route('/map')
 def map():
     return render_template("map.html")
+
 
 @app.route('/about_us')
 def about_us():
@@ -73,7 +81,8 @@ def planner():
         days = int(request.form['totalDays'])
         travelPlans = travelPlan(ll, radius, days)
         travelPlans.dataPopulate()
-        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList, travelPlans.attractionList)
+        saveObject = itineraryObjectCreator(
+            travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList, travelPlans.attractionList)
         session['saveObject'] = saveObject
         totalDays = []
 
@@ -98,7 +107,8 @@ def signUp():
         password = request.form['password']
         savedData = ","
 
-        newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
+        newAccount = Account(username=username, password=generate_password_hash(
+            password), savedData=savedData)
 
         try:
             db.session.add(newAccount)
@@ -131,6 +141,7 @@ def login():
 
     return render_template("registration.html")
 
+
 @app.route('/save', methods=['GET', 'POST'])
 def save():
     if request.method == 'POST':
@@ -148,6 +159,7 @@ def save():
     return render_template("planner.html")
     # check to make sure they are logged in. And add this to the third column saved data
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
+
 
 if __name__ == '__main__':
     with app.app_context():
