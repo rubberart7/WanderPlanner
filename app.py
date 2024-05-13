@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
+from parseData import ParseData
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -14,6 +15,18 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 db = SQLAlchemy(app)
+allData = ParseData()
+
+
+def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
+    itineraryObject = {
+        "breakfastList": breakfastList,
+        "lunchList": lunchList,
+        "dinnerList": dinnerList,
+        "attractionList": attractionList,
+    }
+
+    return itineraryObject
 
 
 def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
@@ -88,6 +101,7 @@ def planner():
 
         for day in range(days):
             totalDays.append(day)
+
         return render_template("itinerary.html",
                                duration=totalDays,
                                breakfastList=travelPlans.breakfastList,
@@ -105,19 +119,27 @@ def signUp():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        savedData = ","
+        confirmPassword = request.form['confirmPassword']
+        # This will check the database for other occurrences, if there is already a specific username in db
+        # (aka a first pops up) then this username is now invalid
+        user = Account.query.filter_by(username=username).first()
 
         newAccount = Account(username=username, password=generate_password_hash(
             password), savedData=savedData)
 
-        try:
-            db.session.add(newAccount)
-            db.session.commit()
+            newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
 
-            return redirect("/sign-up")
+            try:
+                db.session.add(newAccount)
+                db.session.commit()
 
-        except:
-            return "There was an error with this operation"
+                return redirect("/login")
+
+            except:
+                return "If you reached this screen please contact me on what happened"
+        else:
+
+            return render_template("registration.html", error="This username has already been taken")
 
     return render_template("registration.html")
 
@@ -131,6 +153,14 @@ def login():
         user = Account.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
+            currUser = Account.query.get(user.id)
+            savedData = currUser.savedData
+            savedDataList = savedData.split("@")
+            if len(savedDataList) > 1:
+                for items in range(1, len(savedDataList)):
+                    if savedDataList[items] != "":
+                        allData.addItinerary(savedDataList[items])
+
             return render_template(
                 "welcome.html",
                 username=username,
@@ -149,8 +179,10 @@ def save():
         try:
             user_id = session['user_id']
             currUser = Account.query.get(user_id)
-            currUser.savedData += f"{my_var}"
+            currUser.savedData += f"{my_var}@"
             db.session.commit()
+            # Make it so this is my_var instead
+            allData.addItinerary(f"{my_var}")
 
         except KeyError:
 
@@ -158,6 +190,8 @@ def save():
 
     return render_template("planner.html")
     # check to make sure they are logged in. And add this to the third column saved data
+
+
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
 
 
