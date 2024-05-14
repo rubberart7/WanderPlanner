@@ -59,6 +59,10 @@ body {
     justify-self: center;
 }
 
+.logoName:hover, .logoImg:hover {
+    cursor: pointer;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -80,6 +84,7 @@ body {
 
 #dropdownContent a:hover {
     color: var(--skyblue);
+    cursor: pointer;
 }
 
 .dropdown:hover #dropdownContent {
@@ -103,7 +108,7 @@ body {
 }
 
 .buttonContainer button:hover,
-.startNowBtn button:hover {
+.startNowBtn button:hover, .logForm div:hover {
     color: var(--skyblue);
     scale: 1.05;
 }
@@ -196,7 +201,7 @@ body {
     text-align: center;
     padding: 20px;
     background-color: var(--lightgray);
-    color: var(--fontcolor);
+    color: var(--deepblue);
 }
 
 .recsPage {
@@ -225,6 +230,7 @@ body {
 .recommendation h3 {
     font-size: 24px;
     margin-bottom: 10px;
+    color: var(--deepblue);
 }
 
 .recommendation img {
@@ -237,7 +243,7 @@ body {
 
 .recommendation p {
     font-size: 16px;
-    color: black;
+    color: var(--deepblue);
 }
 
 .recommendation.enlarged {
@@ -358,6 +364,27 @@ body {
     height: 100px;
 }
 
+.savePlanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0px;
+}
+
+.savePlanner button {
+    border: none;
+    padding: 10px 60px;
+    font-size: 20px;
+    background-color: var(--deepblue);
+    color: var(--bodybackground);
+    border-radius: 10px;
+}
+
+.savePlanner button:hover {
+    scale: 1.02;
+    background-color: var(--lightblue);
+}
+
 .daysContainer {
     display: flex;
     justify-content: space-around;
@@ -374,8 +401,9 @@ h2.title {
 .day {
     display: flex;
     width: 20vw;
+    height: 175vh;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     color: var(--deepblue);
     padding: 1.5vw;
@@ -489,6 +517,12 @@ cursor: pointer;
 }
 
 
+/* About us Page */
+.aboutUsHeading, .missionStatement, .marketingSlogan {
+    color: var(--deepblue);
+}
+
+
 /* CSS for the floating toolbar */
 .floating-toolbar {
     position: fixed;
@@ -502,83 +536,98 @@ cursor: pointer;
     max-width: 70%; /* Limit maximum width of the bubble */
     z-index: 1000; /* Set a higher z-index for the toolbar */
     cursor: pointer;
-  }
+}
   
   /* Enlarged state */
-  .floating-toolbar.enlarged {
+.floating-toolbar.enlarged {
     width: 300px; 
     height: auto; /* Allow height to expand to fit content */
     border-radius: 20px; /* Retain border radius */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
     z-index: 1001; /* Set an even higher z-index for the enlarged toolbar */
-  }
+}
 
   /* Hover effect */
 .floating-toolbar:hover {
     background-color: #e0e0e0; 
-  }
+}
   
 
-  .toolbar-content {
+.toolbar-content {
     padding: 10px;
-  }
+}
 
-  .toolbar-text {
+.toolbar-text {
     white-space: pre-line; /* Preserve line breaks */
     color: #000000; /* Set the text color */
     font-size: 14px; /* Set the font size */
     /* Add any additional styling as needed */
 }
-  .teamContainer {
+
+.teamContainer {
     text-align: center;
     margin: 0 auto;
     max-width: 1000px;
-  }
+    color: var(--deepblue);
+}
 
-  .teamGrid {
+.teamGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-top: 20px;
-  }
+}
 
-  .teamMember {
+.teamMember {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}
 
-  .teamMember img {
+.teamMember img {
     max-width: 200px;
     height: auto;
     border-radius: 50%;
     margin-bottom: 10px;
-  }
+}
 
-  .teamMember h4 {
+.teamMember h4 {
     margin: 5px 0;
     font-size: 1.2em;
-  }
+}
 
-  .teamMember p {
+.teamMember p {
     margin: 0;
     font-size: 1em;
-  }
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .teamGrid {
       grid-template-columns: 1fr;
     }
-  }
+}
 
-  #errorMsg {
+#errorMsg {
     color: red;
     text-align: left;
     font-weight: 600;
-  }
+}
 
+input[type="text"] {
+    border: none;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
 
-  #chatbot {
+input[type="text"]:focus {
+    outline: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#chatbot {
     position: fixed;
     bottom: 50px;
     right: 20px;
@@ -590,10 +639,6 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-}
-
-.hidden {
-    display: none;
 }
 
 .chatbot-header {
@@ -609,6 +654,12 @@ cursor: pointer;
     overflow-y: auto;
 }
 
+#userInput {
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
 
 #chatbotButton {
     position: fixed;

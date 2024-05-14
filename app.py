@@ -1,13 +1,14 @@
 import os
 
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
 from parseData import ParseData
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from datetime import date
+from datetime import datetime
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -40,6 +41,21 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
     return itineraryObject
 
 
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_message = request.json.get('message')
+    if user_message.lower() == 'hello':
+        bot_response = "Hi there! How can I help you today?"
+    else:
+        bot_response = "Sorry, I did not understand that."
+    return jsonify({'response': bot_response})
+
+
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
@@ -48,11 +64,6 @@ class Account(db.Model):
 
     def __repr__(self):
         return f'<Account {self.username}>'
-
-
-@app.route('/')
-def index():
-    return render_template("index.html")
 
 
 @app.route('/map')
@@ -85,8 +96,8 @@ def planner():
         days = int(request.form['totalDays'])
         travelPlans = travelPlan(ll, radius, days)
         travelPlans.dataPopulate()
-        saveObject = itineraryObjectCreator(travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList,
-                                            travelPlans.attractionList)
+        saveObject = itineraryObjectCreator(
+            travelPlans.breakfastList, travelPlans.lunchList, travelPlans.dinnerList, travelPlans.attractionList)
         session['saveObject'] = saveObject
         totalDays = []
 
@@ -115,8 +126,8 @@ def signUp():
         # (aka a first pops up) then this username is now invalid
         user = Account.query.filter_by(username=username).first()
 
-        if user is None:
-            savedData = "@"
+        newAccount = Account(username=username, password=generate_password_hash(
+            password), savedData=savedData)
 
             newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
 
