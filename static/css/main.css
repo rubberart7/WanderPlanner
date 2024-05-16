@@ -674,8 +674,4 @@ input[type="text"]:focus {
     cursor: pointer;
 }
 
-.hiddenForm {
-    display: none;
-    position: absolute;
-}
 
