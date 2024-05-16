@@ -7,8 +7,7 @@ from parseData import ParseData
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from datetime import datetime
-
+from datetime import datetime, date
 
 load_dotenv()
 app = Flask(__name__)
@@ -120,14 +119,13 @@ def signUp():
         username = request.form['username']
         password = request.form['password']
         confirmPassword = request.form['confirmPassword']
-        # This will check the database for other occurrences, if there is already a specific username in db
-        # (aka a first pops up) then this username is now invalid
         user = Account.query.filter_by(username=username).first()
 
-        newAccount = Account(username=username, password=generate_password_hash(
-            password), savedData=savedData)
+        if user is None and password == confirmPassword:
+            savedData = "@"
 
-            newAccount = Account(username=username, password=generate_password_hash(password), savedData=savedData)
+            newAccount = Account(username=username, password=generate_password_hash(
+                password), savedData=savedData)
 
             try:
                 db.session.add(newAccount)
@@ -193,6 +191,43 @@ def save():
 
 
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
+
+@app.route('/toggleLog', methods=['GET', 'POST'])
+def toggleLog():
+    if request.method == "POST":
+        logState = request.form["hiddenForm"]
+        session["logState"] = logState
+        if logState != "Log Out":
+            print("toggle")
+            allData.clear()
+
+        db.session.close()
+
+    return render_template("registration.html")
+
+
+
+@app.route('/savedPlans')
+def savedPlans():
+    if len(allData.getDataList()) >= 1:
+        allDataList = allData.getDataList()
+        totalPlans = []
+        for lists in range(len(allDataList)):
+            totalDays = []
+            for days in range(len(allDataList[lists]["breakfastList"])):
+                totalDays.append(days)
+            totalPlans.append(totalDays)
+
+
+        return render_template("savedPlans.html",
+                               allPlans=totalPlans,
+                               parseString=parseObjectToString,
+                               totalList=allData.getDataList(),
+                               date=date.today(),
+                               )
+    else:
+        print('this is supposed to be blank')
+        return render_template("savedPlans.html")
 
 
 if __name__ == '__main__':
