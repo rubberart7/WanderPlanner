@@ -41,6 +41,7 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
 
 @app.route('/')
 def index():
+    session["logState"] = "Log Out"
     return render_template("index.html")
 
 
@@ -174,6 +175,10 @@ def login():
 def save():
     if request.method == 'POST':
         my_var = session.get('saveObject')
+        if session["logState"] == "Log Out":
+            return render_template("warning.html",
+                                   errorPage="Save Functionality")
+
         try:
             user_id = session['user_id']
             currUser = Account.query.get(user_id)
@@ -184,7 +189,7 @@ def save():
 
         except KeyError:
 
-            return "You need to be logged in"
+            return "You must be logged in (bypass warning)"
 
     return render_template("planner.html")
     # check to make sure they are logged in. And add this to the third column saved data
@@ -198,7 +203,6 @@ def toggleLog():
         logState = request.form["hiddenForm"]
         session["logState"] = logState
         if logState != "Log Out":
-            print("toggle")
             allData.clear()
 
         db.session.close()
@@ -209,6 +213,9 @@ def toggleLog():
 
 @app.route('/savedPlans')
 def savedPlans():
+    if session["logState"] == "Log Out":
+        return render_template("warning.html",
+                               errorPage="Saved Plans")
     if len(allData.getDataList()) >= 1:
         allDataList = allData.getDataList()
         totalPlans = []
@@ -226,7 +233,6 @@ def savedPlans():
                                date=date.today(),
                                )
     else:
-        print('this is supposed to be blank')
         return render_template("savedPlans.html")
 
 

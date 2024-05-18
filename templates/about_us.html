@@ -6,56 +6,35 @@
 <!--If you want to add something to body, just add it in between the block-->
 
 {% block body %}
-<title>About Us</title>
-<header class="aboutUsHeading">
-  <h1 class="aboutUsLogo" style="text-align: center; font-size: 35px;">About Us</h1>
-  <p style="text-align: center;">Here is information about the creators</p>
-</header>
+<div class="aboutUsPage">
 
-<main>
-  <section class="teamContainer">
-    <h1 style="font-size: 35px;">Meet Our Developers</h1>
-    <div class="teamGrid">
-      <!-- Team Member 1 -->
-      <div class="teamMember">
-        <img src="../static/css/images/Screenshot 2024-04-11 at 11.23.56 AM.png" alt ="Photo of Member One">
-        <h4>Miraj Yafi</h4>
-        <p>Front-end Developer</p>
-      </div>
-      <!-- Team Member 2 -->
-      <div class="teamMember">
-        <img src="../static/css/images/liam.jpeg" alt="Photo of Member Two">
-        <h4>Liangquan Wu </h4>
-        <p>Backend Developer</p>
-      </div>
-      <!-- Team Member 3 -->
-      <div class="teamMember">
-        <img src="../static/css/images/image_6487327.JPG" alt="Photo of Member Three">
-        <h4>Lian Jung</h4>
-        <p>Full Stack Developer</p>
-      </div>
-      <!-- Team Member 4 -->
-      <div class="teamMember">
-        <img src="../static/css/images/Screenshot 2024-04-11 at 11.31.12 AM.png" alt="Photo of Member Four">
-        <h4>Allen Varghese</h4>
-        <p>Front-End Developer</p>
-      </div>
+  <h1 id="aboutUsHead">About Us</h1>
+
+  <div class="ourMission">
+
+    <div class="ourMissionDiv">
+      <h1>Our Mission</h1>
+      <p>Welcome to Wander Planner, your go-to travel itinerary app designed to help you discover and plan your perfect trips. Our team uses the Four Square API to bring you tailored travel recommendations. By inputting coordinates, radius, and specific queries, our app fetches a curated list of locations to create personalized travel plans that match your interests and schedule. We optimize API calls for better performance and cost-efficiency, ensuring a smooth planning experience. Our website offers a user-friendly interface with features like an automatic image slideshow and easy navigation. Explore destinations with ease and enjoy a visually appealing, functional experience. At Wander Planner, we’re committed to improving design, API efficiency, and features, providing you with the best tools for your next adventure. Thank you for choosing Wander Planner – your journey starts here!</p>
     </div>
-  </section>
-  <section class="missionStatement">
-    <h1 style="text-align: center; font-size: 35px;">Our Mission</h1>
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <p style="width: 50%; text-align: center; font-size: 20px;">
-        At WanderPlanner, our mission is to maximize your vacation enjoyment by providing a product that considers vacations as precious and rare opportunities, and we feel privileged to impact the trajectory of your plans.
-      </p>
-    </div>
-    
-  </section>
 
-  <section class="marketingSlogan">
-    <h2 style="text-align: center;">Don't wander through the unknown!</h2>
-  </section>
+    <img src="../static/css/images/pexels-photo-1051075.jpeg">
 
-</main>
+  </div>
+
+    <div class="ourMission">
+
+      <img src="../static/css/images/IMG_1346.png">
+
+
+      <div class="ourMissionDiv">
+        <h1>Our Team</h1>
+        <p>At Wander Planner, our team is dedicated to making travel planning effortless and enjoyable. Liangquan Wu focuses on leveraging the Four Square API to bring you tailored travel recommendations by optimizing data structures and API calls. Lian Jung has crafted a user-friendly interface with intuitive navigation and engaging features like an automatic image slideshow. Miraj Yafi brings destinations to life on our recommendations page, allowing users to explore and focus on specific travel spots with ease. Allen Varghese ensures our itinerary and about us pages are dynamic and responsive, integrating HTML, CSS, and JavaScript for a seamless user experience. Together, we are committed to continuously improving our platform, adding new features, and enhancing your travel planning experience.</p>
+      </div>
+
+  </div>
+
+</div>
+
+
 
 {% endblock %}
