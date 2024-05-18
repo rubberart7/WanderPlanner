@@ -680,4 +680,60 @@ input[type="text"]:focus {
 }
 
 
+.errorPageDiv {
+    height: 70vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
+}
+
+.errorPageDiv h1 {
+    color: black;
+}
+
+.aboutUsPage {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    gap: 5vw;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutUsPage p {
+    font-size: 21px;
+    color: black;
+}
+
+.aboutUsPage h1 {
+    color: black;
+    font-size: 35px;
+}
+
+.ourMission {
+    width: 65%;
+    display: flex;
+    gap: 25px;
+}
+
+.ourMission img {
+    width: 500px;
+    height: 500px;
+}
+
+.ourMissionDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutUsPage h1 {
+    margin: 0px;
+}
+
+#aboutUsHead {
+    padding-top: 5vh;
+}
