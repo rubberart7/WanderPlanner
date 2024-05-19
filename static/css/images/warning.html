@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block head %}{% endblock %}
+
+
+{% block body %}
+<div class="errorPageDiv">
+    <h1>You must be logged in to access the {{errorPage}} functionality</h1>
+    <button onclick="window.location.href='/planner'">Sign In Now!</button>
+</div>
+{% endblock %}

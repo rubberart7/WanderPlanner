@@ -20,6 +20,7 @@
 
 <div class="sign-up-container">
     <form class="sign-up" method="post" action="/sign-up" onsubmit="return validatePassword()">
+        {{error}}
         <h1>Sign Up</h1>
 
         <label for="username">Username</label>
@@ -54,7 +55,7 @@
     </form>
 </div>
 
-<script>
+<script defer>
 
     let switchLogin = document.querySelector(".sign-up-container p");
     let switchSignup = document.querySelector(".login-container p");

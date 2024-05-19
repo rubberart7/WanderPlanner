@@ -3,17 +3,29 @@ import os
 from flask import Flask, render_template, url_for, request, redirect, session, jsonify
 from apiTest import travelPlan, parseObjectToString
 from locationAPI import returnCoordinates
+from parseData import ParseData
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-from datetime import datetime
-
+from datetime import datetime, date
 
 load_dotenv()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 db = SQLAlchemy(app)
+allData = ParseData()
+
+
+def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
+    itineraryObject = {
+        "breakfastList": breakfastList,
+        "lunchList": lunchList,
+        "dinnerList": dinnerList,
+        "attractionList": attractionList,
+    }
+
+    return itineraryObject
 
 
 def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
@@ -29,6 +41,7 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
 
 @app.route('/')
 def index():
+    session["logState"] = "Log Out"
     return render_template("index.html")
 
 
@@ -88,6 +101,7 @@ def planner():
 
         for day in range(days):
             totalDays.append(day)
+
         return render_template("itinerary.html",
                                duration=totalDays,
                                breakfastList=travelPlans.breakfastList,
@@ -105,19 +119,26 @@ def signUp():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        savedData = ","
+        confirmPassword = request.form['confirmPassword']
+        user = Account.query.filter_by(username=username).first()
 
-        newAccount = Account(username=username, password=generate_password_hash(
-            password), savedData=savedData)
+        if user is None and password == confirmPassword:
+            savedData = "@"
 
-        try:
-            db.session.add(newAccount)
-            db.session.commit()
+            newAccount = Account(username=username, password=generate_password_hash(
+                password), savedData=savedData)
 
-            return redirect("/sign-up")
+            try:
+                db.session.add(newAccount)
+                db.session.commit()
 
-        except:
-            return "There was an error with this operation"
+                return redirect("/login")
+
+            except:
+                return "If you reached this screen please contact me on what happened"
+        else:
+
+            return render_template("registration.html", error="This username has already been taken")
 
     return render_template("registration.html")
 
@@ -131,6 +152,14 @@ def login():
         user = Account.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
+            currUser = Account.query.get(user.id)
+            savedData = currUser.savedData
+            savedDataList = savedData.split("@")
+            if len(savedDataList) > 1:
+                for items in range(1, len(savedDataList)):
+                    if savedDataList[items] != "":
+                        allData.addItinerary(savedDataList[items])
+
             return render_template(
                 "welcome.html",
                 username=username,
@@ -146,19 +175,65 @@ def login():
 def save():
     if request.method == 'POST':
         my_var = session.get('saveObject')
+        if session["logState"] == "Log Out":
+            return render_template("warning.html",
+                                   errorPage="Save Functionality")
+
         try:
             user_id = session['user_id']
             currUser = Account.query.get(user_id)
-            currUser.savedData += f"{my_var}"
+            currUser.savedData += f"{my_var}@"
             db.session.commit()
+            # Make it so this is my_var instead
+            allData.addItinerary(f"{my_var}")
 
         except KeyError:
 
-            return "You need to be logged in"
+            return "You must be logged in (bypass warning)"
 
     return render_template("planner.html")
     # check to make sure they are logged in. And add this to the third column saved data
+
+
 # session['user_id'] = user.id play around with this is: 100% how you determine if a player is logged in
+
+@app.route('/toggleLog', methods=['GET', 'POST'])
+def toggleLog():
+    if request.method == "POST":
+        logState = request.form["hiddenForm"]
+        session["logState"] = logState
+        if logState != "Log Out":
+            allData.clear()
+
+        db.session.close()
+
+    return render_template("registration.html")
+
+
+
+@app.route('/savedPlans')
+def savedPlans():
+    if session["logState"] == "Log Out":
+        return render_template("warning.html",
+                               errorPage="Saved Plans")
+    if len(allData.getDataList()) >= 1:
+        allDataList = allData.getDataList()
+        totalPlans = []
+        for lists in range(len(allDataList)):
+            totalDays = []
+            for days in range(len(allDataList[lists]["breakfastList"])):
+                totalDays.append(days)
+            totalPlans.append(totalDays)
+
+
+        return render_template("savedPlans.html",
+                               allPlans=totalPlans,
+                               parseString=parseObjectToString,
+                               totalList=allData.getDataList(),
+                               date=date.today(),
+                               )
+    else:
+        return render_template("savedPlans.html")
 
 
 if __name__ == '__main__':

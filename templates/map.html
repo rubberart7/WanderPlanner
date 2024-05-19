@@ -5,36 +5,118 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google Map</title>
-    <h1>My Google Map</h1>
+    <!-- <h1 class="mapTitle">My Google Map</h1> -->
     <style>
       * {
-        margin: 0;
-        padding: 0;
+          margin: 0;
+          padding: 0;
       }
+
+      .mapTitle {
+          color: var(--deepblue);
+          padding-top: 20px;
+      }
+
+      .search-bar {
+          margin-top: 20px;
+          text-align: center;
+          padding-bottom: 20px;
+      }
+
+      #pac-input {
+          width: 300px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+
+      #origin, #destination {
+          width: 300px;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+
+      #origin::placeholder, #destination::placeholder {
+          color: #808080;
+      }
+
+      #get-directions-btn {
+          padding: 10px 20px;
+          background-color: var(--deepblue);
+          color: var(--lightgray);
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+      }
+
+      #get-directions-btn:hover {
+          background-color: #176B87;
+      }
+
       #map {
-        /* Adjust the height of the map */
-        height: 600px;
-        /* Adjust the width of the map */
-        width: 80%;
-        margin: 0 auto; /* Center the map horizontally */
-        border: 5px solid var(--deepblue); /* Add border with custom color */
-        border-radius: 10px; /* Add border radius for rounded corners */
-        background-color: var(--lightgray); /* Set background color */
+          height: 600px;
+          width: 80%;
+          margin: 0 auto;
+          border: 5px solid var(--deepblue);
+          border-radius: 10px;
+          background-color: var(--lightgray);
       }
-      h1 {
-        text-align: center;
+
+      /* h1 {
+          text-align: left;
+      } */
+
+      .travel-info {
+          text-align: center;
+          margin: 20px;
+          font-size: 18px;
+          font-weight: bold;
       }
-    </style>
+  </style>
   </head>
   <body>
+    <!-- Add the search input field -->
+    <div class="search-bar">
+      <input id="pac-input" type="text" placeholder="Search" />
+    </div>
+    <div>
+      <label for="origin">Origin:</label>
+      <input type="text" id="origin" placeholder="Enter original address">
+      <br>
+      <label for="destination">Destination:</label>
+      <input type="text" id="destination" placeholder="Enter destination address">
+      <br>
+      <button onclick="calculateAndDisplayRoute()">Get Directions</button>
+      <div class="travel-info" id="travel-info"></div>
+      <div id="travel-time"></div>
+      <div id="travel-distance"></div>
+  </div>
+    </div>
     <div id="map"></div>
     <script>
+      const defaultZoom = 4;
+      // defines javascript function which initalizes the map centered at these coordinates with a zoom level, rendered using the google maps api
       function initMap() {
         var location = { lat: -25.363, lng: 131.044 };
         var map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 4,
+          zoom: defaultZoom,
           center: location,
         });
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        distanceMatrixService = new google.maps.DistanceMatrixService();
+        directionsRenderer.setMap(map);
+      
+        //defines a marker icon with a specific URL and size,
+        // sets an initial position for the marker, and creates the marker object
+        // with properties including the icon, position, title, and draggable
+        // capability. Event listeners are added to handle marker clicks, which zoom the map
+        // to the marker's location, and marker dragging, which logs the new position coordinates when dragging ends.
         var markerIcon = {
           url: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png", // URL of the marker icon image
           scaledSize: new google.maps.Size(40, 40), // Size of the marker icon
@@ -62,12 +144,115 @@
             event.latLng.lng()
           );
         });
+
+        // Autocomplete and SearchBox Code
+        var input = document.getElementById("pac-input");
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        map.addListener("bounds_changed", function () {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        searchBox.addListener("places_changed", function () {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+          markers.forEach(function (marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function (place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25),
+            };
+
+            markers.push(
+              new google.maps.Marker({
+                map: map,
+                icon: icon,
+                title: place.name,
+                position: place.geometry.location,
+              })
+            );
+
+            if (place.geometry.viewport) {
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
       }
+      // function for calculating directions and displaying it
+      function calculateAndDisplayRoute() {
+            var origin = document.getElementById("origin").value;
+            var destination = document.getElementById("destination").value;
+
+            if (!origin || !destination) {
+                alert("Please enter both origin and destination addresses.");
+                return;
+            }
+
+            directionsService.route(
+                {
+                    origin: origin,
+                    destination: destination,
+                    travelMode: "DRIVING",
+                },
+                function (response, status) {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+                        calculateTravelInfo(origin, destination);
+                    } else {
+                        alert("Directions request failed due to " + status);
+                    }
+                }
+            );
+        }
+
+      function calculateTravelInfo(origin, destination) {
+          distanceMatrixService.getDistanceMatrix(
+              {
+                  origins: [origin],
+                  destinations: [destination],
+                  travelMode: "DRIVING",
+              },
+              function (response, status) {
+                  if (status === "OK") {
+                      var element = response.rows[0].elements[0];
+                      var duration = element.duration.text;
+                      var distance = element.distance.text;
+                      document.getElementById("travel-time").innerText = "Travel time: " + duration;
+                      document.getElementById("travel-distance").innerText = "Distance: " + distance;
+                  } else {
+                      alert("Distance Matrix request failed due to " + status);
+                  }
+              }
+          );
+      }
+
+      window.initMap = initMap;
+    </script>
     </script>
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC25kVhHoyX5OjED2X6jNkXCfLt8TcpEK0&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC25kVhHoyX5OjED2X6jNkXCfLt8TcpEK0&libraries=places&callback=initMap"
     ></script>
   </body>
 </html>
