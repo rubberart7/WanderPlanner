@@ -54,6 +54,13 @@
   </div>
 </div>
 
+<h2 style="margin-left: 130px;">Contact Us</h2>
+    <form id="contactForm" action="https://formspree.io/f/xdoqvnev" method="POST">
+        <label for="query" style="margin-left: 130px;">Your Query:</label><br>
+        <textarea id="query" name="query" rows="4" cols="50" style="margin-left: 130px;" class="styled-textarea"></textarea><br><br>
+        <input type="submit" value="Send" class="styled-button" style="margin-left: 130px;">
+    </form>
+
 <div id="chatbot" class="hidden">
   <div id ="chatbot-header">
     <h2>Chatbot</h2>
@@ -127,7 +134,6 @@
           }
       }
   }
-
 </script>
 
 {% endblock %}
