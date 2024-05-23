@@ -783,3 +783,33 @@ cursor: pointer;
 #aboutUsHead {
     padding-top: 5vh;
 }
+
+.fullscreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.fullscreen form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.textarea {
+    width: 60vw;
+    height: 30vh;
+}
+
+#textsubmit {
+    width: 120px;
+    height: 50px;
+    align-self: center;
+    font-size: 25px;
+    background-color: green;
+    border-radius: 5px;
+    color: white;
+    font-family: Tahoma;
+}
