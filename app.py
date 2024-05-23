@@ -175,9 +175,9 @@ def login():
 def save():
     if request.method == 'POST':
         my_var = session.get('saveObject')
-        if session["logState"] == "Log Out":
-            return render_template("warning.html",
-                                   errorPage="Save Functionality")
+        # if session["logState"] == "Log Out":
+        #     return render_template("warning.html",
+        #                            errorPage="Save Functionality")
 
         try:
             user_id = session['user_id']
@@ -199,6 +199,7 @@ def save():
 
 @app.route('/toggleLog', methods=['GET', 'POST'])
 def toggleLog():
+    print(session["logState"])
     if request.method == "POST":
         logState = request.form["hiddenForm"]
         session["logState"] = logState
@@ -213,9 +214,9 @@ def toggleLog():
 
 @app.route('/savedPlans')
 def savedPlans():
-    if session["logState"] == "Log Out":
-        return render_template("warning.html",
-                               errorPage="Saved Plans")
+    # if session["logState"] == "Log In":
+    #     return render_template("warning.html",
+    #                            errorPage="Saved Plans")
     if len(allData.getDataList()) >= 1:
         allDataList = allData.getDataList()
         totalPlans = []
@@ -234,6 +235,8 @@ def savedPlans():
                                )
     else:
         return render_template("savedPlans.html")
+
+    # Test
 
 
 if __name__ == '__main__':
