@@ -733,7 +733,6 @@ cursor: pointer;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .errorPageDiv h1 {
@@ -741,22 +740,24 @@ cursor: pointer;
 }
 
 .aboutUsPage {
-    width: 100vw;
-    height: 80vh;
-    display: flex;
+    display: grid;
     gap: 5vw;
-    flex-direction: column;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
     align-items: center;
+    margin: 10vh 0vh;
+    gap: 0;
 }
 
 .aboutUsPage p {
-    font-size: 21px;
-    color: black;
+    font-size: 20px;
+    color: var(--deepblue);
 }
 
 .aboutUsPage h1 {
-    color: black;
-    font-size: 35px;
+    color: var(--deepblue);
+    font-size: 30px;
 }
 
 .ourMission {
@@ -765,9 +766,14 @@ cursor: pointer;
     gap: 25px;
 }
 
-.ourMission img {
+.aboutUsPage .missionImg {
     width: 500px;
-    height: 500px;
+    height: auto;
+}
+
+.aboutUsPage img {
+    width: 400px;
+    height: auto;
 }
 
 .ourMissionDiv {
