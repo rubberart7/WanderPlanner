@@ -157,6 +157,7 @@ body {
     width: 75vw;
     height: 25vh;
     margin-left: 12.5vw;
+    color: var(--deepblue);
 }
 
 .quote {
@@ -173,6 +174,7 @@ body {
     grid-template-columns: 40vw 40vw;
     justify-content: center;
     align-items: center;
+    color: var(--deepblue);
 }
 
 
@@ -819,4 +821,18 @@ cursor: pointer;
     border-radius: 5px;
     color: white;
     font-family: Tahoma;
+}
+
+.footer {
+    color: var(--bodybackground);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--deepblue);
+}
+
+.footer img {
+    width: 10px;
+    height: auto;
 }
