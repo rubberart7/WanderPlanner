@@ -117,3 +117,169 @@ def dataPopulate(self):
 ```
 When this method is called, we will call the foursquare API to give us all the breakfast locations in a certain area and add it to the return list later. We repeat this for attractions, lunchList, dinnerList and eventually will have a full list of travel plans to send to app.py. 
 #### HTML Files: 
+(base.html)
+<br />
+The base.html file is the main file that all of the other html files inherit from. This file is where the general formatting of each page lies and it contains items like the navigation bar, the help toolbar button, and the footer. 
+##### Example: 
+```html 
+      <img class="logoImg" src="../static/css/images/wander2.png" alt="" onclick="window.location.href='/'"/>
+      <h1 class="logoName" onclick="window.location.href='/'">WanderPlanner</h1>
+      <div class="buttonContainer">
+        <button class="button" onclick="window.location.href='/'">Home</button>
+        <div class="dropdown">
+          <button class="button" onclick="window.location.href='/planner'">
+            Planner
+          </button>
+          <div id="dropdownContent">
+            <a class="link" onclick="window.location.href='/savedPlans'">
+              Saved Plans
+            </a>
+          </div>
+        </div>
+        <button class="button" onclick="window.location.href='/recommendations'">
+          Recommendations
+        </button>
+        <button class="button" onclick="window.location.href='/map'">
+          SimpleMap
+        </button>
+        <button class="button" onclick="window.location.href='/about_us'">
+          About Us
+        </button>
+```
+The snippet of code shows some of the html code for the navigation bar. Here we can see that there is an image tag for the logo, and several button tags for each of the tabs the navigation bar allows navigation to. We can also see that there is an onclick event with every button that brings the page to its dedicated html page.
+
+(index.html)
+<br />
+The index.html file is the home page of Wanderplanner. It contains a general overview of the website and a button that leads to the main functionality of the website which is the form required to generate the itinerary plan (planner.html).
+##### Example: 
+```html 
+    <div class="info">
+        <div class="infoHeader">
+            <h1>A tool to embark on your perfect adventure</h1>
+        </div>
+        <div class="infoText">
+            <p>
+                "Discover boundless horizons with WanderPlanner, your gateway to
+                personalized journeys. Unleash the extraordinary as we meticulously
+                craft seamless itineraries, turning your wanderlust into unforgettable
+                adventures. Start planning now."
+            </p>
+        </div>
+        <div class="startNowBtn">
+            <button onclick="window.location.href='/planner'">Plan Now -></button>
+        </div>
+    </div>
+```
+An information div is shown here and it contains a header, some information, along with a button that brings the user to the planning page.
+
+(planner.html)
+<br />
+The planner.html file contains the form that takes the input of the user's destination and number of days to generate an intinerary. The form is proccessed in the backend which then generates the detailed itinerary (from apiTest.py) to output on itinerary.html.
+##### Example: 
+```html 
+    <div class="link-container">
+        <form action="/planner" method="post" class="travelForm">
+            <h2>Travel Budget Form</h2>
+
+            <label for="totalBudget">Total Budget (Dollars):</label>
+            <input type="number" id="totalBudget" name="totalBudget" placeholder="e.g. 1000" required>
+
+            <label for="radius">Radius (Miles):</label>
+            <input type="number" id="radius" name="radius" placeholder="e.g. 20" required>
+
+            <label for="totalDays">Total Days:</label>
+            <input type="number" id="totalDays" name="totalDays" placeholder="e.g. 4" required>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" placeholder="e.g. 3675 Market Street" required>
+
+            <label for="departure">Departure Date:</label>
+            <input type="date" id="departure" name="departure" placeholder="mm/dd/yyyy" required>
+
+            <label for="return">Return Date</label>
+            <input type="date" id="return" name="return" placeholder="mm/dd/yyyy" required>
+
+            <button type="submit" class="formSubmit">Submit</button>
+
+            <a href='/recommendations'>Don't know where to go?</a>
+        </form>
+    </div>
+```
+This snippet of code shows the form with all of the required inputs the user needs to enter to generate an itinerary. The required fields contains: budget, radius (how far user is willing to travel), totals days, address of location, and departure/return date. This is also a link that leads to the reccomendation page which shows a variety of countries with a short description.
+
+(about_us.html)
+<br />
+The about_us.html file contains information about Wanderplanner's team and the roles of each member. Additionally, it contains our mission statement, our goals, and a way to send feedback or contact us.
+##### Example: 
+```html 
+     <div class="fullscreen">
+      <h1>Contact Us</h1>
+      <form action="https://formspree.io/f/xdoqvnev" method="POST">
+        <textarea id="query" class="textarea" name="query"></textarea>
+        <input type="submit" value="Send" id="textsubmit">
+      </form>
+  </div> 
+```
+This snippet of code contains the "Contact Us" form for users to input some sort of feedback or message which is then sent to us.
+
+(login.html)
+<br />
+The login.html file contains both the login and signup form to create an account for Wanderplanner.
+##### Example: 
+```html 
+    <div class="login-container hideForm">
+        <form class="login">
+            <h1>Login</h1>
+
+            <label for="loginUsername">Username</label>
+            <input
+            type="text"
+            name="loginUsername"
+            id="loginUsername"
+            placeholder="Enter Username"
+            />
+
+            <label for="loginPassword">Password</label>
+            <input
+            type="password"
+            name="loginPassword"
+            id="loginPassword"
+            placeholder="Enter Password"
+            />
+
+            <button>Login</button>
+
+            <p>Don't have an account?</p>
+        </form>
+    </div>
+```
+
+Here is the login form and it requires a username and password to login. The username and password input is checked in the backend when the form is submitted. If the username/password combination is invalid (not in the database) an error message will appear. There is also a link on the bottom that redirects the user to the signup form if they do not have an account.
+
+#### CSS Files: 
+(main.css)
+<br />
+The main.css file contains all of the css for every single html page. 
+##### Example: 
+```css
+    @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;600&display=swap");
+
+    :root {
+        /*https://colorhunt.co/palette/eef5ffb4d4ff86b6f6176b87  (Link to color palette)*/
+        --lightgray: #EEF5FF;
+        --lightblue: #B4D4FF;
+        --darkerlightblue: #98b4d9;
+        --skyblue: #86B6F6;
+        --deepblue: #176B87;
+        --bodybackground: #f0f0f0;
+        --fontcolor: #808080;
+    }
+
+```
+This snippet of code imports the Ubuntu font that we use throughout all of our html pages. There is also the a bunch of colors that we use for the theme of our website that is easily accessible in the root selector.
+
+
+
+
+
+
