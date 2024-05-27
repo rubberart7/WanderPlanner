@@ -836,3 +836,21 @@ cursor: pointer;
     width: 10px;
     height: auto;
 }
+
+.downloadButton {
+    background-color: #176B87; 
+    color: white; 
+    width: 220px;
+    padding: 10px; 
+    font-size: 16px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    text-transform: uppercase;
+    outline: none; 
+    transition: background-color 0.3s; 
+}
+
+.downloadButton:hover {
+    background-color: #B4D4FF;
+}
