@@ -3,8 +3,9 @@
 
 
 {% block body %}
-<div class="errorPageDiv">
+<div class="errorPageDivs">
     <h1>You must be logged in to access the {{errorPage}} functionality</h1>
+<!--    This button has now been fixed-->
     <button onclick="window.location.href='/login'">Sign In Now!</button>
 </div>
 {% endblock %}
