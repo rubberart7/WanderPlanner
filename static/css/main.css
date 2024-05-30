@@ -33,6 +33,7 @@ body {
     background-color: var(--bodybackground);
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 .buttonContainer{
@@ -853,4 +854,8 @@ cursor: pointer;
 
 .downloadButton:hover {
     background-color: #B4D4FF;
+}
+
+.savedBody {
+    min-height: 90vh;
 }

@@ -7,48 +7,49 @@
 {% endblock %}
 
 {% block body %}
+<div class="savedBody">
+    <h1 class="title">Saved Itinerary</h1>
 
-<h1 class="title">Saved Itinerary</h1>
+    <div>
+        {% for plan_index in range(allPlans|length) %}
+        <h1 class="title">Plan #{{plan_index + 1}} ({{date}})</h1>
 
-<div>
-    {% for plan_index in range(allPlans|length) %}
-    <h1 class="title">Plan #{{plan_index + 1}} ({{date}})</h1>
-
-    <div class="daysContainer">
-
-
-    {% for day_index in range(allPlans[plan_index]|length) %}
-        <div class="day">
-            <h2 class="title">Day {{day_index + 1}}</h2>
-
-            <h3>Breakfast: </h3>
-            <p>{{parseString(totalList[plan_index]['breakfastList'][day_index])}}</p>
-
-            <h3>Activity One: </h3>
-            <p>{{parseString(totalList[plan_index]['attractionList'][3*day_index])}}</p>
+        <div class="daysContainer">
 
 
-            <h3>Lunch: </h3>
-            <p>{{parseString(totalList[plan_index]['lunchList'][day_index])}}</p>
+        {% for day_index in range(allPlans[plan_index]|length) %}
+            <div class="day">
+                <h2 class="title">Day {{day_index + 1}}</h2>
+
+                <h3>Breakfast: </h3>
+                <p>{{parseString(totalList[plan_index]['breakfastList'][day_index])}}</p>
+
+                <h3>Activity One: </h3>
+                <p>{{parseString(totalList[plan_index]['attractionList'][3*day_index])}}</p>
 
 
-            <h3>Activity Two: </h3>
-            <p>{{parseString(totalList[plan_index]['attractionList'][(3*day_index)+1])}}</p>
+                <h3>Lunch: </h3>
+                <p>{{parseString(totalList[plan_index]['lunchList'][day_index])}}</p>
 
 
-            <h3>Activity Three: </h3>
-            <p>{{parseString(totalList[plan_index]['attractionList'][(3*day_index)+2])}}</p>
+                <h3>Activity Two: </h3>
+                <p>{{parseString(totalList[plan_index]['attractionList'][(3*day_index)+1])}}</p>
 
 
-            <h3>Dinner:</h3>
-            <p>{{parseString(totalList[plan_index]['dinnerList'][day_index])}}</p>
+                <h3>Activity Three: </h3>
+                <p>{{parseString(totalList[plan_index]['attractionList'][(3*day_index)+2])}}</p>
 
+
+                <h3>Dinner:</h3>
+                <p>{{parseString(totalList[plan_index]['dinnerList'][day_index])}}</p>
+
+            </div>
+
+
+        {% endfor %}
         </div>
-
-
     {% endfor %}
     </div>
-{% endfor %}
 </div>
 
 
