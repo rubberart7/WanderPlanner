@@ -11,6 +11,114 @@
     --fontcolor: #808080;
 }
 
+@media (max-width: 768px) {
+    .teamGrid {
+      grid-template-columns: 1fr;
+    }
+}
+
+#aboutUsHead {
+    padding-top: 5vh;
+}
+
+#dropdownContent {
+    display: none;
+    width: 100%;
+    position: absolute;
+    background-color: var(--deepblue);
+}
+
+#dropdownContent .link {
+    background-color: var(--deepblue);
+    color: var(--bodybackground);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#dropdownContent a:hover {
+    color: var(--skyblue);
+    cursor: pointer;
+}
+
+#errorMsg {
+    color: red;
+    text-align: left;
+    font-weight: 600;
+}
+
+#chatbot {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 1002;
+}
+
+#chatbot-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+#chatbot-header button {
+    border: none;
+    padding: 5px 25px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 25px;
+    font-size: 16px;
+}
+
+#chatbot-header button:hover {
+    background-color: #0068d9;
+}
+
+#userInput {
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+#chatbotButton {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#chatbotButton:hover {
+    background-color: #e0e0e0;
+}
+
+
+#textsubmit {
+    width: 120px;
+    height: 50px;
+    align-self: center;
+    font-size: 25px;
+    background-color: #3b7a99;
+    border-radius: 5px;
+    color: white;
+    font-family: Tahoma;
+}
+
 .navBar {
     width: 100vw;
     max-height: 10vh;
@@ -67,25 +175,6 @@ body {
 .dropdown {
     position: relative;
     display: inline-block;
-}
-
-#dropdownContent {
-    display: none;
-    width: 100%;
-    position: absolute;
-    background-color: var(--deepblue);
-}
-
-#dropdownContent .link {
-    background-color: var(--deepblue);
-    color: var(--bodybackground);
-    font-weight: 600;
-    font-size: 20px;
-}
-
-#dropdownContent a:hover {
-    color: var(--skyblue);
-    cursor: pointer;
 }
 
 .dropdown:hover #dropdownContent {
@@ -604,56 +693,8 @@ cursor: pointer;
     font-size: 1em;
 }
 
-@media (max-width: 768px) {
-    .teamGrid {
-      grid-template-columns: 1fr;
-    }
-}
-
 .hidden {
     display: none;
-}
-
-#errorMsg {
-    color: red;
-    text-align: left;
-    font-weight: 600;
-}
-
-#chatbot {
-    position: fixed;
-    bottom: 50px;
-    right: 20px;
-    width: 300px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    overflow: hidden;
-    z-index: 1002;
-}
-
-#chatbot-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
-
-#chatbot-header button {
-    border: none;
-    padding: 5px 25px;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 25px;
-    font-size: 16px;
-}
-
-#chatbot-header button:hover {
-    background-color: #0068d9;
 }
 
 .chatbot-messages {
@@ -667,24 +708,6 @@ cursor: pointer;
     border-top: 1px solid #ccc;
     padding: 10px;
     width: calc(100% - 20px);
-}
-
-#chatbotButton {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #f0f0f0;
-    color: black;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-}
-
-#chatbotButton:hover {
-    background-color: #e0e0e0; 
 }
 
 .hiddenForm {
@@ -729,7 +752,7 @@ cursor: pointer;
 }
 
 
-.errorPageDiv {
+.errorPageDivs {
     height: 70vh;
     width: 100%;
     display: flex;
@@ -738,7 +761,7 @@ cursor: pointer;
     align-items: center;
 }
 
-.errorPageDiv h1 {
+.errorPageDivs h1 {
     color: black;
 }
 
@@ -789,9 +812,6 @@ cursor: pointer;
     margin: 0px;
 }
 
-#aboutUsHead {
-    padding-top: 5vh;
-}
 
 .fullscreen {
     display: flex;
@@ -811,17 +831,6 @@ cursor: pointer;
 .textarea {
     width: 60vw;
     height: 30vh;
-}
-
-#textsubmit {
-    width: 120px;
-    height: 50px;
-    align-self: center;
-    font-size: 25px;
-    background-color: #3b7a99;
-    border-radius: 5px;
-    color: white;
-    font-family: Tahoma;
 }
 
 .footer {
