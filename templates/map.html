@@ -109,11 +109,6 @@
       <div id="transit-time"></div>
     </div>
     <div id="map"></div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"
-      async
-      defer
-    ></script>
     <script>
       const defaultZoom = 4;
       let directionsService;
@@ -205,13 +200,16 @@
       }
 
       function calculateAndDisplayRoute() {
+        // retrieves the addresses entered by the user
         const origin = document.getElementById("origin").value;
         const destination = document.getElementById("destination").value;
+        // checks if either the origin or destination code is missing and if it is, it asks the user to enter both addresses
         if (!origin || !destination) {
           alert("Please enter both origin and destination addresses.");
           return;
         }
 
+        // iterates over every travel mode and obtains route information using Google Directions Service
         const travelModes = ["DRIVING", "WALKING", "BICYCLING", "TRANSIT"];
         travelModes.forEach(function (mode) {
           directionsService.route(
@@ -222,6 +220,7 @@
             },
             function (response, status) {
               if (status === "OK") {
+                //if the api returned a result successfully, it will then display the driving route on the map
                 if (mode === "DRIVING") {
                   directionsRenderer.setDirections(response);
                 }
@@ -235,11 +234,11 @@
       }
 
       function displayTravelTime(response, mode) {
-        const duration = response.routes[0].legs[0].duration.text;
+        const duration = response.routes[0].legs[0].duration.text; //extracts the travel duration from the response object and accesses it in a readable way
         let elementId = "";
         switch (mode) {
           case "DRIVING":
-            elementId = "travel-time";
+            elementId = "travel-time"; // depending on the different modes it sets the elemntID as either biking, walking etc
             break;
           case "WALKING":
             elementId = "walking-time";
@@ -253,30 +252,7 @@
         }
         document.getElementById(
           elementId
-        ).innerText = `Time to ${mode.toLowerCase()}: ${duration}`;
-      }
-
-      function calculateTravelInfo(origin, destination) {
-        distanceMatrixService.getDistanceMatrix(
-          {
-            origins: [origin],
-            destinations: [destination],
-            travelMode: "DRIVING",
-          },
-          function (response, status) {
-            if (status === "OK") {
-              const element = response.rows[0].elements[0];
-              const duration = element.duration.text;
-              const distance = element.distance.text;
-              document.getElementById("travel-time").innerText =
-                "Travel time: " + duration;
-              document.getElementById("travel-distance").innerText =
-                "Distance: " + distance;
-            } else {
-              alert("Distance Matrix request failed due to " + status);
-            }
-          }
-        );
+        ).innerText = `Time to ${mode.toLowerCase()}: ${duration}`; //updates the inner text of the html element with the corresponding elementID, it includes the travel mode...
       }
 
       window.initMap = initMap;
