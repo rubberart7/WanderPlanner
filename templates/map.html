@@ -257,11 +257,24 @@
 
       window.initMap = initMap;
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/dotenv@10.0.0/dist/dotenv.js"></script>
+    <script>
+      // Load environment variables from .env file
+      dotenv.config();
 
+      // Access your API key from the environment variable
+      const apiKey = process.env.GOOGLE_MAPS_SECRET_KEY;
+
+      // Initialize Google Maps API with your API key
+      // function initMap() {
+      //   // Use apiKey variable to initialize the map
+      //   // Your map initialization code here
+      // }
+    </script>
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC25kVhHoyX5OjED2X6jNkXCfLt8TcpEK0&libraries=places&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_SECRET_KEY&libraries=places&callback=initMap"
     ></script>
   </body>
 </html>
