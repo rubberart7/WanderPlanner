@@ -111,11 +111,11 @@
     <div id="map"></div>
     <script src="https://cdn.jsdelivr.net/npm/dotenv@10.0.0/dist/dotenv.js"></script>
     <script>
-      // Load environment variables from .env file
-      dotenv.config();
+      // // Load environment variables from .env file
+      // dotenv.config();
 
-      // Access your API key from the environment variable
-      const apiKey = process.env.GOOGLE_MAPS_SECRET_KEY;
+      // // Access your API key from the environment variable
+      // const apiKey = process.env.GOOGLE_MAPS_SECRET_KEY;
 
       // Initialize Google Maps API with your API key
       // function initMap() {
@@ -124,6 +124,11 @@
       // }
     </script>
     <script>
+      // Load environment variables from .env file
+      dotenv.config();
+
+      // Access your API key from the environment variable
+      const apiKey = process.env.GOOGLE_MAPS_SECRET_KEY;
       const defaultZoom = 4;
       let directionsService;
       let directionsRenderer;
@@ -275,7 +280,7 @@
     <script
       async
       defer
-      src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_SECRET_KEY&libraries=places&callback=initMap"
+      src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap"
     ></script>
   </body>
 </html>
