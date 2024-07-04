@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -89,53 +90,64 @@
     </div>
     <div>
       <label for="origin">Origin:</label>
-      <input type="text" id="origin" placeholder="Enter origin address" />
-      <br />
+      <input type="text" id="origin" placeholder="Enter origin address" /><br />
       <label for="destination">Destination:</label>
       <input
         type="text"
         id="destination"
         placeholder="Enter destination address"
-      />
-      <br />
+      /><br />
       <button id="get-directions-btn" onclick="calculateAndDisplayRoute()">
         Get Directions
       </button>
       <div class="travel-info" id="travel-info"></div>
       <div id="travel-time"></div>
-      <div id="travel-distance"></div>
       <div id="walking-time"></div>
       <div id="bicycling-time"></div>
       <div id="transit-time"></div>
     </div>
     <div id="map"></div>
-    <script src="https://cdn.jsdelivr.net/npm/dotenv@10.0.0/dist/dotenv.js"></script>
+
+    <!-- JavaScript to fetch API key and initialize Google Maps will go here -->
     <script>
-      // // Load environment variables from .env file
-      // dotenv.config();
-
-      // // Access your API key from the environment variable
-      // const apiKey = process.env.GOOGLE_MAPS_SECRET_KEY;
-
-      // Initialize Google Maps API with your API key
-      // function initMap() {
-      //   // Use apiKey variable to initialize the map
-      //   // Your map initialization code here
-      // }
-    </script>
-    <script>
-      // Load environment variables from .env file
-      dotenv.config();
-
-      // Access your API key from the environment variable
-      const apiKey = process.env.GOOGLE_MAPS_SECRET_KEY;
-      const defaultZoom = 4;
       let directionsService;
       let directionsRenderer;
       let distanceMatrixService;
+      const defaultZoom = 10; // Example default zoom level
+
+      async function fetchApiKey() {
+        try {
+          const response = await fetch("/api/get_google_maps_api_key");
+          if (!response.ok) {
+            throw new Error("Failed to fetch API key");
+          }
+          const data = await response.json();
+          return data.googleMapsApiKey;
+        } catch (error) {
+          console.error("Error fetching API key:", error);
+          // Handle error (e.g., show user a message)
+        }
+      }
+
+      async function loadScript() {
+        try {
+          const apiKey = await fetchApiKey();
+          const script = document.createElement("script");
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
+          script.async = true;
+          script.onerror = function () {
+            console.error("Failed to load Google Maps API script.");
+            // Handle error (e.g., show user a message)
+          };
+          document.head.appendChild(script);
+        } catch (error) {
+          console.error("Error loading Google Maps API script:", error);
+          // Handle error (e.g., show user a message)
+        }
+      }
 
       function initMap() {
-        const location = { lat: -25.363, lng: 131.044 };
+        const location = { lat: 40.7128, lng: -74.006 };
         const map = new google.maps.Map(document.getElementById("map"), {
           zoom: defaultZoom,
           center: location,
@@ -219,16 +231,13 @@
       }
 
       function calculateAndDisplayRoute() {
-        // retrieves the addresses entered by the user
         const origin = document.getElementById("origin").value;
         const destination = document.getElementById("destination").value;
-        // checks if either the origin or destination code is missing and if it is, it asks the user to enter both addresses
         if (!origin || !destination) {
           alert("Please enter both origin and destination addresses.");
           return;
         }
 
-        // iterates over every travel mode and obtains route information using Google Directions Service
         const travelModes = ["DRIVING", "WALKING", "BICYCLING", "TRANSIT"];
         travelModes.forEach(function (mode) {
           directionsService.route(
@@ -239,7 +248,6 @@
             },
             function (response, status) {
               if (status === "OK") {
-                //if the api returned a result successfully, it will then display the driving route on the map
                 if (mode === "DRIVING") {
                   directionsRenderer.setDirections(response);
                 }
@@ -253,11 +261,11 @@
       }
 
       function displayTravelTime(response, mode) {
-        const duration = response.routes[0].legs[0].duration.text; //extracts the travel duration from the response object and accesses it in a readable way
+        const duration = response.routes[0].legs[0].duration.text;
         let elementId = "";
         switch (mode) {
           case "DRIVING":
-            elementId = "travel-time"; // depending on the different modes it sets the elemntID as either biking, walking etc
+            elementId = "travel-time";
             break;
           case "WALKING":
             elementId = "walking-time";
@@ -271,17 +279,12 @@
         }
         document.getElementById(
           elementId
-        ).innerText = `Time to ${mode.toLowerCase()}: ${duration}`; //updates the inner text of the html element with the corresponding elementID, it includes the travel mode...
+        ).innerText = `Time to ${mode.toLowerCase()}: ${duration}`;
       }
 
-      window.initMap = initMap;
-      // testing new github project
+      window.onload = loadScript;
     </script>
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap"
-    ></script>
   </body>
 </html>
+
 {% endblock %}

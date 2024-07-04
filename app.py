@@ -69,6 +69,11 @@ class Account(db.Model):
 def map():
     return render_template("map.html")
 
+@app.route('/api/get_google_maps_api_key')
+def get_google_maps_api_key():
+    api_key = os.getenv('GOOGLE_MAPS_SECRET_KEY')
+    return jsonify({'googleMapsApiKey': api_key})
+
 
 @app.route('/about_us')
 def about_us():
