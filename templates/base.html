@@ -12,7 +12,12 @@
   </head>
   <body>
     <nav class="navBar">
-      <img class="logoImg" src="../static/css/images/wander2.png" alt="" onclick="window.location.href='/'"/>
+      <img
+        class="logoImg"
+        src="../static/css/images/wander2.png"
+        alt=""
+        onclick="window.location.href='/'"
+      />
       <h1 class="logoName" onclick="window.location.href='/'">WanderPlanner</h1>
       <div class="buttonContainer">
         <button class="button" onclick="window.location.href='/'">Home</button>
@@ -26,7 +31,10 @@
             </a>
           </div>
         </div>
-        <button class="button" onclick="window.location.href='/recommendations'">
+        <button
+          class="button"
+          onclick="window.location.href='/recommendations'"
+        >
           Recommendations
         </button>
         <button class="button" onclick="window.location.href='/map'">
@@ -36,12 +44,24 @@
           About Us
         </button>
         <form class="logForm" action="/toggleLog" method="post">
-          <input type="input" name="hiddenForm" class="hiddenForm" id="hiddenForm" value="KingKong">
-          <div class="loginBtn button logs" onclick="window.location.href='/login'">
-          Log In
+          <input
+            type="input"
+            name="hiddenForm"
+            class="hiddenForm"
+            id="hiddenForm"
+            value="KingKong"
+          />
+          <div
+            class="loginBtn button logs"
+            onclick="window.location.href='/login'"
+          >
+            Log In
           </div>
-          <div class="logoutBtn button hide logs" onclick="window.location.href='/login'">
-          Log Out
+          <div
+            class="logoutBtn button hide logs"
+            onclick="window.location.href='/login'"
+          >
+            Log Out
           </div>
         </form>
       </div>
@@ -59,16 +79,16 @@
 
     <!-- JavaScript code -->
     <script defer>
-      const logForm = document.querySelector(".logForm")
-      const logButtons = logForm.querySelectorAll(".logs")
+      const logForm = document.querySelector(".logForm");
+      const logButtons = logForm.querySelectorAll(".logs");
       logButtons.forEach((button) => {
         button.addEventListener("click", () => {
-          let currButton = document.querySelector(".hide")
-          let hiddenInput = document.querySelector(".hiddenForm")
-          hiddenInput.value = currButton.innerHTML.trim()
-          logForm.submit()
-        })
-      })
+          let currButton = document.querySelector(".hide");
+          let hiddenInput = document.querySelector(".hiddenForm");
+          hiddenInput.value = currButton.innerHTML.trim();
+          logForm.submit();
+        });
+      });
 
       const floatingToolbar = document.getElementById("floatingToolbar");
       let isToolbarEnlarged = false;
@@ -82,50 +102,62 @@
       // When the toolbar is clicked, it calls the toggleToolbar() function, effectively toggling its enlargement state and updating its text content.
       function toggleToolbar() {
         floatingToolbar.classList.toggle("enlarged");
+        // it adds or removes the enlarged class depending on whether its available
         isToolbarEnlarged = !isToolbarEnlarged;
 
         const isEnlarged = floatingToolbar.classList.contains("enlarged");
-        const newText = isEnlarged
-          ? `Useful tips:
+        // returns true or false if it contains the enlarged class
+        let newText;
+
+        if (isEnlarged) {
+          newText = `Useful tips:
 1. Explore popular travel destinations on our recommendations page.
    If you're unsure where to go, this is the perfect place to start!
-2. Generate a specialized travel plan just for you on our planner page.`
-          : "Help";
+2. Generate a specialized travel plan just for you on our planner page.`;
+        } else {
+          newText = "Help";
+        }
+
         floatingToolbar.querySelector(".toolbar-text").textContent = newText;
       }
 
       // Add click event listener to toggle toolbar enlargement
-      floatingToolbar.addEventListener("click", toggleToolbar); 
+      floatingToolbar.addEventListener("click", toggleToolbar);
 
-      const loginBtn = document.querySelector('.loginBtn');
-      const logoutBtn = document.querySelector('.logoutBtn');
+      const loginBtn = document.querySelector(".loginBtn");
+      const logoutBtn = document.querySelector(".logoutBtn");
 
-      let displayLogoutBtn = localStorage.getItem('loggedIn');
+      let displayLogoutBtn = localStorage.getItem("loggedIn");
 
-      if (displayLogoutBtn === 'true') {
-        loginBtn.classList.add('hide');
-        logoutBtn.classList.remove('hide');
+      if (displayLogoutBtn === "true") {
+        loginBtn.classList.add("hide");
+        logoutBtn.classList.remove("hide");
       } else {
-        loginBtn.classList.remove('hide');
-        logoutBtn.classList.add('hide');
+        loginBtn.classList.remove("hide");
+        logoutBtn.classList.add("hide");
       }
 
-      logoutBtn.addEventListener('click', () => {
-        localStorage.setItem('loggedIn', false);
-        loginBtn.classList.remove('hide');
-        logoutBtn.classList.add('hide');
-      })
-
-
+      logoutBtn.addEventListener("click", () => {
+        localStorage.setItem("loggedIn", false);
+        loginBtn.classList.remove("hide");
+        logoutBtn.classList.add("hide");
+      });
     </script>
 
     {% block body %}{% endblock %}
 
     <footer>
       <div class="footer">
-        <h4>Copyright <span><img src="../static/css/images/copyright.png" alt="copyright image"></span> 2024 WanderPlanner</h4>
+        <h4>
+          Copyright
+          <span
+            ><img
+              src="../static/css/images/copyright.png"
+              alt="copyright image"
+          /></span>
+          2024 WanderPlanner
+        </h4>
       </div>
     </footer>
-
   </body>
 </html>
