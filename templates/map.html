@@ -1,291 +1,227 @@
-{% extends 'base.html' %} {% block head %} {% endblock %} {% block body %}
+{% extends 'base.html' %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/main.css') }}"
+/>
+<title>My Google Map</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <title>My Google Map</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
+  .mapTitle {
+    color: var(--deepblue);
+    padding-top: 20px;
+  }
+
+  #origin,
+  #destination {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  #origin::placeholder,
+  #destination::placeholder {
+    color: #808080;
+  }
+
+  #get-directions-btn {
+    padding: 10px 20px;
+    background-color: var(--deepblue);
+    color: var(--lightgray);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #get-directions-btn:hover {
+    background-color: #176b87;
+  }
+
+  #map {
+    height: 600px;
+    width: 80%;
+    margin: 0 auto;
+    border: 5px solid var(--deepblue);
+    border-radius: 10px;
+    background-color: var(--lightgray);
+  }
+
+  .travel-info {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .travel-mode {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .travel-mode i {
+    margin-right: 5px;
+    font-size: inherit;
+  }
+</style>
+{% endblock %} {% block body %}
+<div>
+  <label for="origin">Origin:</label>
+  <input type="text" id="origin" placeholder="Enter origin address" /><br />
+  <label for="destination">Destination:</label>
+  <input
+    type="text"
+    id="destination"
+    placeholder="Enter destination address"
+  /><br />
+  <button id="get-directions-btn" onclick="calculateAndDisplayRoute()">
+    Get Directions
+  </button>
+  <div class="travel-info" id="travel-info"></div>
+  <div id="travel-time"></div>
+  <div id="walking-time"></div>
+  <div id="bicycling-time"></div>
+  <div id="transit-time"></div>
+</div>
+<div id="map"></div>
+
+<script>
+  let directionsService;
+  let directionsRenderer;
+  let distanceMatrixService;
+  const defaultZoom = 10; // Example default zoom level
+
+  async function fetchApiKey() {
+    try {
+      const response = await fetch("/api/get_google_maps_api_key");
+      // goes to the route and fetches a jsonified version of the api key
+      if (!response.ok) {
+        throw new Error("Failed to fetch API key");
       }
+      const data = await response.json();
+      // parses the json body of the response and returns it and returns the api key part of the data object
+      return data.googleMapsApiKey;
+    } catch (error) {
+      console.error("Error fetching API key:", error);
+      // Handle error (e.g., show user a message)
+    }
+  }
 
-      .mapTitle {
-        color: var(--deepblue);
-        padding-top: 20px;
-      }
+  async function loadScript() {
+    try {
+      const apiKey = await fetchApiKey();
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      // dynamically creates a script tag and appends it to the header and once loaded the initMap function should be called
+      script.async = true;
+      script.onerror = function () {
+        console.error("Failed to load Google Maps API script.");
+        // Handle error (e.g., show user a message)
+      };
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error("Error loading Google Maps API script:", error);
+      // Handle error (e.g., show user a message)
+    }
+  }
 
-      .search-bar {
-        margin-top: 20px;
-        text-align: center;
-        padding-bottom: 20px;
-      }
+  function initMap() {
+    const location = { lat: 40.7128, lng: -74.006 };
+    // setup random default location
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: defaultZoom,
+      center: location,
+    });
+    // creates a google.maps.Map object and attaches to an html element with the map ID the map will be rendered with this element
+    directionsService = new google.maps.DirectionsService();
+    // an instance of directions service which provides directins between the locations
+    directionsRenderer = new google.maps.DirectionsRenderer();
+    // an instance of google maps render which displays travel directions on the map
+    distanceMatrixService = new google.maps.DistanceMatrixService();
+    // creates instance of google maps matrix services which calculates travel distances and durations between locations
+    directionsRenderer.setMap(map);
+    // configures the directionsRender to render directions on the map
+  }
 
-      #pac-input,
-      #origin,
-      #destination {
-        width: 300px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
+  function calculateAndDisplayRoute() {
+    const origin = document.getElementById("origin").value;
+    const destination = document.getElementById("destination").value;
+    if (!origin || !destination) {
+      alert("Please enter both origin and destination addresses.");
+      return;
+      // checks if both are entered and if they are not there will be an alert message and the function will return
+    }
 
-      #pac-input::placeholder,
-      #origin::placeholder,
-      #destination::placeholder {
-        color: #808080;
-      }
-
-      #get-directions-btn {
-        padding: 10px 20px;
-        background-color: var(--deepblue);
-        color: var(--lightgray);
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-      }
-
-      #get-directions-btn:hover {
-        background-color: #176b87;
-      }
-
-      #map {
-        height: 600px;
-        width: 80%;
-        margin: 0 auto;
-        border: 5px solid var(--deepblue);
-        border-radius: 10px;
-        background-color: var(--lightgray);
-      }
-
-      .travel-info {
-        text-align: center;
-        margin-top: 20px;
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      .travel-mode {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-      }
-
-      .travel-mode i {
-        margin-right: 5px;
-        font-size: inherit;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="search-bar">
-      <input id="pac-input" type="text" placeholder="Search" />
-    </div>
-    <div>
-      <label for="origin">Origin:</label>
-      <input type="text" id="origin" placeholder="Enter origin address" /><br />
-      <label for="destination">Destination:</label>
-      <input
-        type="text"
-        id="destination"
-        placeholder="Enter destination address"
-      /><br />
-      <button id="get-directions-btn" onclick="calculateAndDisplayRoute()">
-        Get Directions
-      </button>
-      <div class="travel-info" id="travel-info"></div>
-      <div id="travel-time"></div>
-      <div id="walking-time"></div>
-      <div id="bicycling-time"></div>
-      <div id="transit-time"></div>
-    </div>
-    <div id="map"></div>
-
-    <!-- JavaScript to fetch API key and initialize Google Maps will go here -->
-    <script>
-      let directionsService;
-      let directionsRenderer;
-      let distanceMatrixService;
-      const defaultZoom = 10; // Example default zoom level
-
-      async function fetchApiKey() {
-        try {
-          const response = await fetch("/api/get_google_maps_api_key");
-          if (!response.ok) {
-            throw new Error("Failed to fetch API key");
+    const travelModes = ["DRIVING", "WALKING", "BICYCLING", "TRANSIT"];
+    // for each mode it calls the directionService.route to request directions from the origin
+    // to the destination using the current travel mode
+    // the directionsService.route method takes in an object with origin, destination, travel mode etc
+    //
+    travelModes.forEach(function (mode) {
+      directionsService.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: mode,
+        },
+        // now handle ther result of the route request
+        // IDEA: add a feature where the user enters what travel mode route to display
+        // renders the map with the directionsservice.route response and displays the travel time
+        // one at a time by calling the displayTravel time function
+        function (response, status) {
+          if (status === "OK") {
+            if (mode === "DRIVING") {
+              directionsRenderer.setDirections(response);
+              /*
+              used to take the response object from the directionsService.route call and 
+              render the calculated route on the map. This involves drawing the route's path and 
+              adding markers for the origin and destination points.
+              */
+            }
+            displayTravelTime(response, mode);
+          } else {
+            console.log("Directions request failed due to " + status);
           }
-          const data = await response.json();
-          return data.googleMapsApiKey;
-        } catch (error) {
-          console.error("Error fetching API key:", error);
-          // Handle error (e.g., show user a message)
         }
-      }
+      );
+    });
+  }
 
-      async function loadScript() {
-        try {
-          const apiKey = await fetchApiKey();
-          const script = document.createElement("script");
-          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
-          script.async = true;
-          script.onerror = function () {
-            console.error("Failed to load Google Maps API script.");
-            // Handle error (e.g., show user a message)
-          };
-          document.head.appendChild(script);
-        } catch (error) {
-          console.error("Error loading Google Maps API script:", error);
-          // Handle error (e.g., show user a message)
-        }
-      }
+  function displayTravelTime(response, mode) {
+    const duration = response.routes[0].legs[0].duration.text;
+    // retrieves the duration of the route from the api response and the duration.text provides
+    // a readable string representation
+    let elementId = "";
+    switch (mode) {
+      case "DRIVING":
+        elementId = "travel-time";
+        break;
+      case "WALKING":
+        elementId = "walking-time";
+        break;
+      case "BICYCLING":
+        elementId = "bicycling-time";
+        break;
+      case "TRANSIT":
+        elementId = "transit-time";
+        break;
+    }
+    document.getElementById(
+      elementId
+    ).innerText = `Time to ${mode.toLowerCase()}: ${duration}`;
+    // sets the inner text of each element
+  }
 
-      function initMap() {
-        const location = { lat: 40.7128, lng: -74.006 };
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: defaultZoom,
-          center: location,
-        });
-        directionsService = new google.maps.DirectionsService();
-        directionsRenderer = new google.maps.DirectionsRenderer();
-        distanceMatrixService = new google.maps.DistanceMatrixService();
-        directionsRenderer.setMap(map);
-
-        const markerIcon = {
-          url: "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png",
-          scaledSize: new google.maps.Size(40, 40),
-        };
-        const markerPosition = { lat: -33.8688, lng: 151.2195 };
-        const marker = new google.maps.Marker({
-          position: markerPosition,
-          map: map,
-          icon: markerIcon,
-          title: "Custom Marker",
-          draggable: true,
-        });
-        marker.addListener("click", function () {
-          map.setCenter(marker.getPosition());
-          map.setZoom(16);
-        });
-        marker.addListener("dragend", function (event) {
-          console.log(
-            "Marker dragged to:",
-            event.latLng.lat(),
-            event.latLng.lng()
-          );
-        });
-
-        const input = document.getElementById("pac-input");
-        const searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        map.addListener("bounds_changed", function () {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        let markers = [];
-        searchBox.addListener("places_changed", function () {
-          const places = searchBox.getPlaces();
-          if (places.length == 0) {
-            return;
-          }
-          markers.forEach(function (marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-          const bounds = new google.maps.LatLngBounds();
-          places.forEach(function (place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            const icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25),
-            };
-            markers.push(
-              new google.maps.Marker({
-                map: map,
-                icon: icon,
-                title: place.name,
-                position: place.geometry.location,
-              })
-            );
-            if (place.geometry.viewport) {
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });
-      }
-
-      function calculateAndDisplayRoute() {
-        const origin = document.getElementById("origin").value;
-        const destination = document.getElementById("destination").value;
-        if (!origin || !destination) {
-          alert("Please enter both origin and destination addresses.");
-          return;
-        }
-
-        const travelModes = ["DRIVING", "WALKING", "BICYCLING", "TRANSIT"];
-        travelModes.forEach(function (mode) {
-          directionsService.route(
-            {
-              origin: origin,
-              destination: destination,
-              travelMode: mode,
-            },
-            function (response, status) {
-              if (status === "OK") {
-                if (mode === "DRIVING") {
-                  directionsRenderer.setDirections(response);
-                }
-                displayTravelTime(response, mode);
-              } else {
-                console.log("Directions request failed due to " + status);
-              }
-            }
-          );
-        });
-      }
-
-      function displayTravelTime(response, mode) {
-        const duration = response.routes[0].legs[0].duration.text;
-        let elementId = "";
-        switch (mode) {
-          case "DRIVING":
-            elementId = "travel-time";
-            break;
-          case "WALKING":
-            elementId = "walking-time";
-            break;
-          case "BICYCLING":
-            elementId = "bicycling-time";
-            break;
-          case "TRANSIT":
-            elementId = "transit-time";
-            break;
-        }
-        document.getElementById(
-          elementId
-        ).innerText = `Time to ${mode.toLowerCase()}: ${duration}`;
-      }
-
-      window.onload = loadScript;
-    </script>
-  </body>
-</html>
-
+  window.onload = loadScript;
+  // when the page is loaded this function executes
+</script>
 {% endblock %}

@@ -214,55 +214,54 @@
 </div>
 
 <script>
-  // Get all the recommendation grids
-  const recommendations = document.querySelectorAll(
-    ".recommendations .recommendation"
-  );
-
   // Function to check if any grid is currently enlarged
   function isAnyGridEnlarged() {
     return document.querySelector(".recommendations .enlarged") !== null;
+    // selects the first element inside recommendations that has the class enlarged and returns the boolean true or false for it
   }
 
-  // Add click event listener to each grid
-  recommendations.forEach((recommendation) => {
-    recommendation.addEventListener("click", (event) => {
+  // Add click event listener to the parent container (recommendations)
+  const recommendationsContainer = document.querySelector(".recommendations");
+
+  recommendationsContainer.addEventListener("click", (event) => {
+    // Ensure the clicked element is a recommendation grid
+    const recommendation = event.target.closest(".recommendation");
+    // allows you to click anything for it even if its a nested element
+
+    if (recommendation) {
       // Check if any grid is currently enlarged
       const isEnlarged = isAnyGridEnlarged();
 
-      // Remove the 'enlarged' class from all grids
-      recommendations.forEach((grid) => {
-        grid.classList.remove("enlarged");
-        grid.style.filter = "none";
-      });
+      // Remove 'enlarged' class from all grids
+      recommendationsContainer
+        .querySelectorAll(".recommendation")
+        .forEach((grid) => {
+          grid.classList.remove("enlarged");
+          grid.style.filter = "none";
+        });
 
       if (!isEnlarged) {
         // Add 'enlarged' class to the clicked grid
         recommendation.classList.add("enlarged");
 
         // Blur the other grids
-        recommendations.forEach((grid) => {
-          if (grid !== recommendation) {
-            grid.style.filter = "blur(5px)";
-          }
-        });
+        recommendationsContainer
+          .querySelectorAll(".recommendation")
+          .forEach((grid) => {
+            if (grid !== recommendation) {
+              grid.style.filter = "blur(5px)";
+            }
+          });
       }
-
-      // Stop the click event from bubbling up to the document
-      event.stopPropagation();
-    });
+    }
   });
 
-  // Add click event listener to the document to remove the enlarged view
   document.addEventListener("click", (event) => {
-    // Check if the clicked element is not a recommendation grid or enlarged grid
-    if (
-      !event.target.classList.contains("recommendation") &&
-      !event.target.classList.contains("enlarged") &&
-      !event.target.closest(".enlarged")
-    ) {
-      // Remove the 'enlarged' class from all grids
-      recommendations.forEach((grid) => {
+    // Check if the clicked element is inside a recommendation grid
+    if (!event.target.closest(".recommendation")) {
+      // If clicked outside any recommendation, remove the enlarged class
+      document.querySelectorAll(".recommendation").forEach((grid) => {
+        // forEach is only allowed for array like objects
         grid.classList.remove("enlarged");
         grid.style.filter = "none";
       });

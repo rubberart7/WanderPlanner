@@ -91,7 +91,6 @@
       });
 
       const floatingToolbar = document.getElementById("floatingToolbar");
-      let isToolbarEnlarged = false;
 
       // Function to toggle toolbar enlargement
       // There is a function called toggleToolbar() defined, which is responsible for toggling the enlargement state of the toolbar.
@@ -103,7 +102,6 @@
       function toggleToolbar() {
         floatingToolbar.classList.toggle("enlarged");
         // it adds or removes the enlarged class depending on whether its available
-        isToolbarEnlarged = !isToolbarEnlarged;
 
         const isEnlarged = floatingToolbar.classList.contains("enlarged");
         // returns true or false if it contains the enlarged class

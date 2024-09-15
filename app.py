@@ -27,17 +27,7 @@ def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList)
 
     return itineraryObject
 
-
-def itineraryObjectCreator(breakfastList, lunchList, dinnerList, attractionList):
-    itineraryObject = {
-        "breakfastList": breakfastList,
-        "lunchList": lunchList,
-        "dinnerList": dinnerList,
-        "attractionList": attractionList,
-    }
-
-    return itineraryObject
-
+# this was defined twice
 
 @app.route('/')
 def index():

@@ -17,6 +17,10 @@
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 #aboutUsHead {
     padding-top: 5vh;
 }
@@ -624,7 +628,7 @@ cursor: pointer;
     border-radius: 20px; 
     background-color: #f0f0f0; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
-    transition: all 0.3s ease; /* Add transition for smooth animation */
+    transition: all 300ms ease; /* Add transition for smooth animation */
     max-width: 70%; /* Limit maximum width of the bubble */
     z-index: 1000; /* Set a higher z-index for the toolbar */
     cursor: pointer;
