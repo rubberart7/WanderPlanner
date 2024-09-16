@@ -1,3 +1,29 @@
-.env
-.xml
-.pyc
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual Environment
+venv/
+env/
+
+# Environment Variables
+*.env
+
+# Flask Instance Folder
+instance/
+
+# IDE/Editor
+.vscode/
+.idea/
+
+# SQLite Database
+*.db
+*.sqlite3
+
+# Migrations
+migrations/
+
+# Logs
+*.log

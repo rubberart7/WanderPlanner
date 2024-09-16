@@ -126,6 +126,34 @@
   function displayTravelTime(response, mode) {
     const duration = response.routes[0].legs[0].duration.text;
     // retrieves the duration of the route from the api response and the duration.text provides
+    /*
+    response.routes[0]: The response object contains an array called routes, which includes all the possible routes from the origin to the destination. 
+    The [0] indicates that you're selecting the first route in that array (i.e., the default route Google Maps provides).
+
+      legs[0]: Each route can have multiple "legs," where a leg represents a segment of a journey between two waypoints (or stops). The [0] selects the first leg of the route, which is usually the 
+      entire route if there are no additional waypoints between the start and end points.
+
+      duration: The duration property within the leg object provides the total time it takes to travel that leg. This includes both the value (in seconds) 
+      and a human-readable text representation (e.g., "20 mins").
+
+      duration.text: The .text property provides the duration in a readable format, such as "20 mins" or "1 hour 15 mins", 
+      rather than the raw number of seconds (duration.value).
+      {
+  "routes": [
+    {
+      "legs": [
+        {
+          "duration": {
+            "text": "15 mins",
+            "value": 900
+          }
+        }
+      ]
+    }
+  ]
+}
+
+    */
     // a readable string representation
     let elementId = "";
     switch (mode) {
