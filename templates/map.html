@@ -50,6 +50,7 @@
       script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
       // dynamically creates a script tag and appends it to the header and once loaded the initMap function should be called
       script.async = true;
+      console.log(script);
       script.onerror = function () {
         console.error("Failed to load Google Maps API script.");
         // Handle error (e.g., show user a message)
