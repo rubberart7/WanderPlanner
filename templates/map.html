@@ -47,9 +47,9 @@
     try {
       const apiKey = await fetchApiKey();
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      script.async = true;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&v=1.0`;
       // dynamically creates a script tag and appends it to the header and once loaded the initMap function should be called
-      script.defer = true;
       console.log(script);
       script.onerror = function () {
         console.error("Failed to load Google Maps API script.");
