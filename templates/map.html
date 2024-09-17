@@ -46,19 +46,16 @@
   async function loadScript() {
     try {
       const apiKey = await fetchApiKey();
+      if (!apiKey) {
+        throw new Error("API key is invalid");
+      }
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
       script.async = true;
-      // dynamically creates a script tag and appends it to the header and once loaded the initMap function should be called
-      console.log(script);
-      script.onerror = function () {
-        console.error("Failed to load Google Maps API script.");
-        // Handle error (e.g., show user a message)
-      };
+      script.defer = true; // Optionally, add defer attribute
       document.head.appendChild(script);
     } catch (error) {
       console.error("Error loading Google Maps API script:", error);
-      // Handle error (e.g., show user a message)
     }
   }
 
