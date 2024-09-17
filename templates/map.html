@@ -47,8 +47,8 @@
     try {
       const apiKey = await fetchApiKey();
       const script = document.createElement("script");
-      script.async = true;
       script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&`;
+      script.async = true;
       // dynamically creates a script tag and appends it to the header and once loaded the initMap function should be called
       console.log(script);
       script.onerror = function () {
@@ -177,7 +177,7 @@
     // sets the inner text of each element
   }
 
-  window.onload = loadScript;
+  loadScript();
   // when the page is loaded this function executes
 </script>
 {% endblock %}
