@@ -50,9 +50,7 @@
         throw new Error("API key is invalid");
       }
       const script = document.createElement("script");
-      console.log(`Script before: ${script}`);
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
-      console.log(`Script AFTER: ${script}`);
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&callback=initMap`;
       script.async = true;
       script.defer = true; // Optionally, add defer attribute
       document.head.appendChild(script);
