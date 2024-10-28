@@ -1,5 +1,6 @@
 # WanderPlanner
 
+The link may take about 30 seconds to 1 minute to load the website, please wait
 https://wanderplanner.onrender.com/
 
 The objective of this project is to create an accessible and simple travel itinerary to provide useful suggestions for users. Our application specifically focused on recommending attractions that are considered hidden gems to our users. We utilized both frontend (js, css, python) and backend (python) languages with the Flask framework for the technical side of the project. Our project utilized a system Scrum master, Kanban Boards, and three-week sprints to complete the project. Essentially, the project was built through an Agile/ Scrum methodology. 
